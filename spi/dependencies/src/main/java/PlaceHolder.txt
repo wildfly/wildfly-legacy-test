@@ -1,0 +1,1 @@
+Just here to make sure git creates this directory. It is used as a relative path to resolve the lib directory.
