@@ -29,7 +29,7 @@
     <parent>
         <groupId>org.wildfly.legacy.test</groupId>
         <artifactId>wildfly-legacy-spi-parent</artifactId>
-        <version>1.0.0.Alpha1-SNAPSHOT</version>
+        <version>1.0.0.Alpha1</version>
     </parent>
 
     <artifactId>wildfly-legacy-spi-dependencies</artifactId>
