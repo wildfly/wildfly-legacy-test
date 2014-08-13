@@ -49,12 +49,9 @@
        <module>core</module>
        <module>spi</module>
        <module>subsystem</module>
+       <module>tools</module>
     </modules>
 
-    <build>
-        <plugins>
-        </plugins>
-    </build>
     
     <dependencyManagement>
       <!-- Dependencies in this project -->
