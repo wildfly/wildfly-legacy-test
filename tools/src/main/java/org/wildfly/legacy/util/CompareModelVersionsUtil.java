@@ -97,6 +97,10 @@ public class CompareModelVersionsUtil {
 
     public static void main(String[] args) throws Exception {
 
+        if(CompareModelVersionsUtil.class.getProtectionDomain().getCodeSource().getLocation().toString().endsWith(".jar")) {
+            throw new Exception("This currently does not work as a jar. Please import a clone of https://github.com/kabir/wildfly-legacy-test into your IDE");
+        }
+
         String version = System.getProperty("jboss.as.compare.version", null);
         String fromTgt = System.getProperty("jboss.as.compare.from.target", null);
         String differentVersions = System.getProperty("jboss.as.compare.different.versions", null);
@@ -136,8 +140,6 @@ public class CompareModelVersionsUtil {
             //File projectDir = Tools.getProjectDirectory();
             URL legacyModels = Thread.currentThread().getContextClassLoader().getResource("legacy-models");
             fromDirectory = new File(legacyModels.toURI());
-
-
         } else if (fromTgt.equals("t")) {
             fromDirectory = new File(Tools.getProjectDirectory(), "target");
         } else {
