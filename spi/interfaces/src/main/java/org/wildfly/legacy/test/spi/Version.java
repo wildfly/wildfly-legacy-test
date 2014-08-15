@@ -26,5 +26,5 @@ package org.wildfly.legacy.test.spi;
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
  */
 public class Version {
-    public static String LEGACY_TEST_CONTROLLER_VERSION = "1.0.0.Alpha3-SNAPSHOT";
+    public static String LEGACY_TEST_CONTROLLER_VERSION = "1.0.0.Alpha3";
 }
