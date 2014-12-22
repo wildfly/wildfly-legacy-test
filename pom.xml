@@ -41,7 +41,7 @@
 
     <properties>
       <version.org.jboss.jboss-dmr>1.2.0.Final</version.org.jboss.jboss-dmr>
-      <version.org.jboss.jboss-msc>1.2.2.FInal</version.org.jboss.jboss-msc>
+      <version.org.jboss.jboss-msc>1.2.2.Final</version.org.jboss.jboss-msc>
       <version.org.jboss.jboss-vfs>3.2.5.Final</version.org.jboss.jboss-vfs>
     </properties>
     
