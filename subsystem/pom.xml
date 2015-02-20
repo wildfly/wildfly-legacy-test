@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ JBoss, Home of Professional Open Source.
   ~ Copyright 2010, Red Hat, Inc., and individual contributors
@@ -42,8 +42,6 @@
     <modules>
         <module>7.1.2</module>
         <module>7.2.0</module>
-        <module>7.3.0</module>
-        <module>7.4.0</module>
         <module>8.0.0</module>
     </modules>
 
