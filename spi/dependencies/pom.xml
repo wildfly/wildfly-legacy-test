@@ -42,7 +42,6 @@
     <packaging>pom</packaging>
 
     <properties>
-        <wildfly.current.version>1.0.0.Alpha19</wildfly.current.version>
         <wildfly.lib.directory>${project.build.sourceDirectory}/../../../lib</wildfly.lib.directory>
     </properties>
 

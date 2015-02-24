@@ -43,6 +43,13 @@
       <version.org.jboss.jboss-dmr>1.2.0.Final</version.org.jboss.jboss-dmr>
       <version.org.jboss.jboss-msc>1.2.2.Final</version.org.jboss.jboss-msc>
       <version.org.jboss.jboss-vfs>3.2.5.Final</version.org.jboss.jboss-vfs>
+
+      <!-- If the version of wildfly core has not been released yet containing some changes,
+	   you can override this on the command line using -D. There is no need to do a new 
+	   core release.
+      -->
+      <wildfly.current.version>1.0.0.Alpha19</wildfly.current.version>
+	       
     </properties>
     
     <modules>
