@@ -33,6 +33,8 @@ import java.util.Properties;
 import org.jboss.as.controller.ControlledProcessState;
 import org.jboss.as.controller.Extension;
 import org.jboss.as.controller.RunningModeControl;
+import org.jboss.as.controller.SimpleResourceDefinition;
+import org.jboss.as.controller.descriptions.NonResolvingResourceDescriptionResolver;
 import org.jboss.as.controller.extension.ExtensionRegistry;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
 import org.jboss.as.controller.registry.Resource;
@@ -67,7 +69,7 @@ public class TestModelControllerService8_0_0 extends ModelTestModelControllerSer
                                          final AdditionalInitialization additionalInit, final RunningModeControl runningModeControl, final ExtensionRegistry extensionRegistry,
                                          final StringConfigurationPersister persister, final ModelTestOperationValidatorFilter validateOpsFilter, final boolean registerTransformers) {
         super(AdditionalInitializationUtil.getProcessType(additionalInit), runningModeControl, extensionRegistry.getTransformerRegistry(), persister, validateOpsFilter,
-                ModelTestModelControllerService.DESC_PROVIDER, new ControlledProcessState(true), Controller80x.INSTANCE);
+                new SimpleResourceDefinition(null, new NonResolvingResourceDescriptionResolver()), new ControlledProcessState(true), Controller80x.INSTANCE);
         this.mainExtension = mainExtension;
         this.additionalInit = additionalInit;
         this.controllerInitializer = controllerInitializer;
