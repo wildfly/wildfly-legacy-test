@@ -35,7 +35,7 @@
     <artifactId>wildfly-legacy-test-parent</artifactId>
 
     <groupId>org.wildfly.legacy.test</groupId>
-    <version>1.0.0.Alpha8-SNAPSHOT</version>
+    <version>1.0.0.Alpha8</version>
     <name>WildFly: Legacy Test</name>
     <packaging>pom</packaging>
 
