@@ -49,6 +49,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -56,6 +57,7 @@ import java.util.TreeMap;
 import org.jboss.as.controller.ModelVersion;
 import org.jboss.as.controller.PathAddress;
 import org.jboss.as.controller.client.ModelControllerClient;
+import org.jboss.as.controller.operations.common.Util;
 import org.jboss.dmr.ModelNode;
 import org.xnio.IoUtils;
 
@@ -100,7 +102,7 @@ public class Tools {
 
 
     static ModelNode getCurrentModelVersions() throws Exception {
-        ModelControllerClient client = ModelControllerClient.Factory.create("http-remoting","localhost", 9990);
+        ModelControllerClient client = getClient();
         try {
             ModelNode allVersions = new ModelNode();
 
@@ -133,7 +135,7 @@ public class Tools {
     }
 
     static ModelNode getCurrentRunningResourceDefinition(PathAddress pathAddress) throws Exception {
-        ModelControllerClient client = ModelControllerClient.Factory.create("http-remoting", "localhost", 9990);
+        ModelControllerClient client = getClient();
         try {
             ModelNode op = new ModelNode();
             op.get(OP).set(READ_RESOURCE_DESCRIPTION_OPERATION);
@@ -205,4 +207,46 @@ public class Tools {
         }
         return new ModelNode().fromString(sb.toString());
     }
+
+    private static ModelControllerClient getClient() throws UnknownHostException {
+        String protocol = System.getProperty("wildfly.util.protocol");
+        int port = Integer.valueOf(System.getProperty("wildfly.util.port", "-1"));
+
+        if (protocol != null || port >= 0) {
+            if (protocol != null && port >=0) {
+                return ModelControllerClient.Factory.create(protocol,"localhost", port);
+            } else if (protocol != null) {
+                if (protocol.equals("remote")) {
+                    port = 9999;
+                } else if (protocol.equals("http-remoting")) {
+                    port = 9990;
+                }
+                return ModelControllerClient.Factory.create(protocol,"localhost", port);
+            } else {
+                throw new IllegalStateException("port specified without protocol");
+            }
+        }
+
+        //Try to figure out how to connect if the user did not specify anything
+        ModelControllerClient client = ModelControllerClient.Factory.create("http-remoting","localhost", 9990);
+        try {
+            client.execute(Util.createEmptyOperation(READ_RESOURCE_OPERATION, PathAddress.EMPTY_ADDRESS));
+            return client;
+        } catch (Exception e) {
+            IoUtils.safeClose(client);
+        }
+
+        client = ModelControllerClient.Factory.create("remote","localhost", 9999);
+        try {
+            client.execute(Util.createEmptyOperation(READ_RESOURCE_OPERATION, PathAddress.EMPTY_ADDRESS));
+            return client;
+        } catch (Exception e) {
+            IoUtils.safeClose(client);
+        }
+
+        throw new IllegalStateException("Could not figure out how to connect to the host. " +
+                "Please use -Dwildfly.util.protocol and wildfly.util.port to specify where to connect");
+    }
+
+
 }
