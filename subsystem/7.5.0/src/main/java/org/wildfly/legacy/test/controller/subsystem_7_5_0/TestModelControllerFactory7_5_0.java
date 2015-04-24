@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wildfly.legacy.test.controller.subsystem_7_4_0;
+package org.wildfly.legacy.test.controller.subsystem_7_5_0;
 
 import org.jboss.as.controller.Extension;
 import org.jboss.as.controller.RunningModeControl;
@@ -38,12 +38,12 @@ import org.wildfly.legacy.test.spi.subsystem.TestModelControllerFactory;
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
  * @author <a href="mailto:jperkins@redhat.com">James R. Perkins</a>
  */
-public class TestModelControllerFactory7_4_0 implements TestModelControllerFactory {
+public class TestModelControllerFactory7_5_0 implements TestModelControllerFactory {
 
     @Override
     public ModelTestModelControllerService create(Extension mainExtension, ControllerInitializer controllerInitializer,
             AdditionalInitialization additionalInit, ExtensionRegistry extensionRegistry, StringConfigurationPersister persister,
             ModelTestOperationValidatorFilter validateOpsFilter, boolean registerTransformers) {
-        return new TestModelControllerService7_4_0(mainExtension, controllerInitializer, additionalInit, new RunningModeControl(AdditionalInitializationUtil.getRunningMode(additionalInit)), extensionRegistry, persister, validateOpsFilter, registerTransformers);
+        return new TestModelControllerService7_5_0(mainExtension, controllerInitializer, additionalInit, new RunningModeControl(AdditionalInitializationUtil.getRunningMode(additionalInit)), extensionRegistry, persister, validateOpsFilter, registerTransformers);
     }
 }
