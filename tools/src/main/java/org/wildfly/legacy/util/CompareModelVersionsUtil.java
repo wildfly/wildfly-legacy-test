@@ -78,14 +78,16 @@ public class CompareModelVersionsUtil {
     private final ModelNode legacyResourceDefinitions;
     private final ModelNode currentModelVersions;
     private final ModelNode currentResourceDefinitions;
+    private final Set<String> subsystems;
 
     private CompareModelVersionsUtil(boolean compareDifferentVersions,
-            boolean compareRuntime,
-            String targetVersion,
-            ModelNode legacyModelVersions,
-            ModelNode legacyResourceDefinitions,
-            ModelNode currentModelVersions,
-            ModelNode currentResourceDefinitions) throws Exception {
+                                     boolean compareRuntime,
+                                     String targetVersion,
+                                     ModelNode legacyModelVersions,
+                                     ModelNode legacyResourceDefinitions,
+                                     ModelNode currentModelVersions,
+                                     ModelNode currentResourceDefinitions,
+                                     Set<String> subsystems) throws Exception {
         this.compareDifferentVersions = compareDifferentVersions;
         this.compareRuntime = compareRuntime;
         this.targetVersion = targetVersion;
@@ -93,6 +95,7 @@ public class CompareModelVersionsUtil {
         this.legacyResourceDefinitions = legacyResourceDefinitions;
         this.currentModelVersions = currentModelVersions;
         this.currentResourceDefinitions = currentResourceDefinitions;
+        this.subsystems = subsystems;
     }
 
     public static void main(String[] args) throws Exception {
@@ -106,6 +109,7 @@ public class CompareModelVersionsUtil {
         String differentVersions = System.getProperty("jboss.as.compare.different.versions", null);
         String type = System.getProperty("jboss.as.compare.type", null);
         String runtime = System.getProperty("jboss.as.compare.runtime", null);
+        Set subsystems = parseList(System.getProperty("jboss.as.compare.subsystems", null));
 
         if (version == null) {
             System.out.print("Enter legacy AS version: ");
@@ -176,6 +180,11 @@ public class CompareModelVersionsUtil {
             throw new IllegalArgumentException("Please enter 'y' or 'n'");
         }
 
+        if (subsystems == null) {
+            System.out.print("If you only want to report on differences of certain subsystems enter their names as a comma-separated list (e.g. 'ejb3,jmx'): ");
+            subsystems = parseList(readInput(""));
+        }
+
         System.out.println("Loading legacy model versions for " + version + "....");
         ModelNode legacyModelVersions = Tools.loadModelNodeFromFile(new File(fromDirectory, "standalone-model-versions-" + version + ".dmr"));
         System.out.println("Loaded legacy model versions");
@@ -185,7 +194,7 @@ public class CompareModelVersionsUtil {
         System.out.println("Loaded current model versions");
 
         for (ResourceType resourceType : resourceTypes) {
-            doCompare(resourceType, fromDirectory, compareDifferentVersions, compareRuntime, version, legacyModelVersions, currentModelVersions);
+            doCompare(resourceType, fromDirectory, compareDifferentVersions, compareRuntime, version, legacyModelVersions, currentModelVersions, subsystems);
         }
     }
 
@@ -195,7 +204,8 @@ public class CompareModelVersionsUtil {
             boolean compareRuntime,
             String targetVersion,
             ModelNode legacyModelVersions,
-            ModelNode currentModelVersions) throws Exception {
+            ModelNode currentModelVersions,
+            Set<String> subsystems) throws Exception {
         System.out.println("Loading legacy resource descriptions for " + targetVersion + "....");
         ModelNode legacyResourceDefinitions = Tools.loadModelNodeFromFile(new File(fromDirectory, resourceType.toString().toLowerCase() + "-resource-definition-" + targetVersion + ".dmr"));
         System.out.println("Loaded legacy resource descriptions");
@@ -213,7 +223,7 @@ public class CompareModelVersionsUtil {
         System.out.println("Loaded current resource descriptions");
 
         CompareModelVersionsUtil compareModelVersionsUtil = new CompareModelVersionsUtil(compareDifferentVersions, compareRuntime,
-                targetVersion, legacyModelVersions, legacyResourceDefinitions, currentModelVersions, currentResourceDefinitions);
+                targetVersion, legacyModelVersions, legacyResourceDefinitions, currentModelVersions, currentResourceDefinitions, subsystems);
 
         System.out.println("Starting comparison of the current....\n");
         compareModelVersionsUtil.compareModels();
@@ -238,7 +248,9 @@ public class CompareModelVersionsUtil {
     }
 
     private void compareModels() {
-        compareCoreModels();
+        if (subsystems == null) {
+            compareCoreModels();
+        }
         compareSubsystemModels();
     }
 
@@ -264,6 +276,9 @@ public class CompareModelVersionsUtil {
         compareKeySetsAndRemoveMissing(context, "subsystems", currentSubsystems, legacySubsystems);
 
         for (Map.Entry<String, ModelNode> legacyEntry : legacySubsystems.entrySet()) {
+            if (subsystems != null && !subsystems.contains(legacyEntry.getKey())) {
+                continue;
+            }
             PathAddress subsystemAddress = PathAddress.pathAddress(PathElement.pathElement(SUBSYSTEM, legacyEntry.getKey()));
             ResourceDefinition currentDefinition = new ResourceDefinition(currentSubsystems.get(legacyEntry.getKey()), currentModelVersions);
             ResourceDefinition legacyDefinition = new ResourceDefinition(legacyEntry.getValue(), legacyModelVersions);
@@ -714,6 +729,24 @@ public class CompareModelVersionsUtil {
             }
             return false;
         }
+    }
+
+    private static Set<String> parseList(String s) {
+        if (s == null) {
+            return null;
+        }
+        String[] elements = s.trim().split(",");
+        Set<String> set = null;
+        for (String element : elements) {
+            element = element.trim();
+            if (element.length() > 0) {
+                if (set == null) {
+                    set = new HashSet<>();
+                }
+                set.add(element.trim());
+            }
+        }
+        return set;
     }
 
 }
