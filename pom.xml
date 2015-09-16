@@ -48,7 +48,7 @@
 	   you can override this on the command line using -D. There is no need to do a new 
 	   core release.
       -->
-      <wildfly.current.version>1.0.0.Beta5</wildfly.current.version>
+      <wildfly.current.version>1.0.1.Final</wildfly.current.version>
 	       
     </properties>
     

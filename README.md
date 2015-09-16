@@ -1,7 +1,7 @@
 wildfly-legacy-test
 ===================
 
-Legacy core-model-test and subsystem-test test controllers
+Legacy core-model-test and subsystem-test test controllers for WF core 2.x
 
 When doing a release bump the version using perl to update the version 
 in all the poms and Version.java:
