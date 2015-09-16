@@ -29,7 +29,7 @@
     <parent>
         <groupId>org.wildfly.legacy.test</groupId>
         <artifactId>wildfly-legacy-test-parent</artifactId>
-        <version>1.0.0.Final</version>
+        <version>1.0.1.Alpha1-SNAPSHOT</version>
     </parent>
 
     <artifactId>wildfly-legacy-tools</artifactId>
