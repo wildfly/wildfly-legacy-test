@@ -79,9 +79,11 @@ public class CompareModelVersionsUtil {
     private final ModelNode currentModelVersions;
     private final ModelNode currentResourceDefinitions;
     private final Set<String> subsystems;
+    private final boolean compareDeprecated;
 
     private CompareModelVersionsUtil(boolean compareDifferentVersions,
                                      boolean compareRuntime,
+                                     boolean compareDeprecated,
                                      String targetVersion,
                                      ModelNode legacyModelVersions,
                                      ModelNode legacyResourceDefinitions,
@@ -96,6 +98,7 @@ public class CompareModelVersionsUtil {
         this.currentModelVersions = currentModelVersions;
         this.currentResourceDefinitions = currentResourceDefinitions;
         this.subsystems = subsystems;
+        this.compareDeprecated = compareDeprecated;
     }
 
     public static void main(String[] args) throws Exception {
@@ -109,6 +112,7 @@ public class CompareModelVersionsUtil {
         String differentVersions = System.getProperty("jboss.as.compare.different.versions", null);
         String type = System.getProperty("jboss.as.compare.type", null);
         String runtime = System.getProperty("jboss.as.compare.runtime", null);
+        String deprecated = System.getProperty("jboss.as.compare.deprecated", null);
         Set subsystems = parseList(System.getProperty("jboss.as.compare.subsystems", null));
 
         if (version == null) {
@@ -151,8 +155,8 @@ public class CompareModelVersionsUtil {
         }
 
         if (differentVersions == null) {
-            System.out.print("Report on differences in the model when the management versions are different? y/[n]: ");
-            differentVersions = readInput("n").toLowerCase();
+            System.out.print("Report on differences in the model when the management versions are different? [y]/n: ");
+            differentVersions = readInput("y").toLowerCase();
         }
         boolean compareDifferentVersions;
         if (differentVersions.equals("n")) {
@@ -180,6 +184,21 @@ public class CompareModelVersionsUtil {
             throw new IllegalArgumentException("Please enter 'y' or 'n'");
         }
 
+        if (deprecated == null){
+            System.out.print("Report on differences of deprecation versions for resources/attributes? y/[n]: ");
+            deprecated = readInput("n").toLowerCase();
+        }
+        boolean compareDeprecated;
+        if (deprecated.equals("n")) {
+            System.out.println("Not reporting on differences of deprecation versions for resources/attributes.");
+            compareDeprecated = false;
+        } else if (differentVersions.equals("y")) {
+            System.out.println("Reporting on differences of deprecation versions for resources/attributes.");
+            compareDeprecated = true;
+        } else {
+            throw new IllegalArgumentException("Please enter 'y' or 'n'");
+        }
+
         if (subsystems == null) {
             System.out.print("If you only want to report on differences of certain subsystems enter their names as a comma-separated list (e.g. 'ejb3,jmx'): ");
             subsystems = parseList(readInput(""));
@@ -194,7 +213,7 @@ public class CompareModelVersionsUtil {
         System.out.println("Loaded current model versions");
 
         for (ResourceType resourceType : resourceTypes) {
-            doCompare(resourceType, fromDirectory, compareDifferentVersions, compareRuntime, version, legacyModelVersions, currentModelVersions, subsystems);
+            doCompare(resourceType, fromDirectory, compareDifferentVersions, compareRuntime, compareDeprecated, version, legacyModelVersions, currentModelVersions, subsystems);
         }
     }
 
@@ -202,6 +221,7 @@ public class CompareModelVersionsUtil {
             File fromDirectory,
             boolean compareDifferentVersions,
             boolean compareRuntime,
+            boolean compareDeprecated,
             String targetVersion,
             ModelNode legacyModelVersions,
             ModelNode currentModelVersions,
@@ -223,7 +243,8 @@ public class CompareModelVersionsUtil {
         System.out.println("Loaded current resource descriptions");
 
         CompareModelVersionsUtil compareModelVersionsUtil = new CompareModelVersionsUtil(compareDifferentVersions, compareRuntime,
-                targetVersion, legacyModelVersions, legacyResourceDefinitions, currentModelVersions, currentResourceDefinitions, subsystems);
+                compareDeprecated, targetVersion, legacyModelVersions, legacyResourceDefinitions, currentModelVersions,
+                currentResourceDefinitions, subsystems);
 
         System.out.println("Starting comparison of the current....\n");
         compareModelVersionsUtil.compareModels();
@@ -379,7 +400,9 @@ public class CompareModelVersionsUtil {
         compareNillable(context, id, current, legacy);
         compareExpressionsAllowed(context, id, current, legacy);
         compareAlternatives(context, id, current, legacy);
-        compareDeprecated(context, id, current, legacy);
+        if (compareDeprecated) {
+            compareDeprecated(context, id, current, legacy);
+        }
         //TODO compare anything else?
     }
 
