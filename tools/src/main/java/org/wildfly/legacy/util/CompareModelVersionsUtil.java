@@ -113,7 +113,7 @@ public class CompareModelVersionsUtil {
         String type = System.getProperty("jboss.as.compare.type", null);
         String runtime = System.getProperty("jboss.as.compare.runtime", null);
         String deprecated = System.getProperty("jboss.as.compare.deprecated", null);
-        Set subsystems = parseList(System.getProperty("jboss.as.compare.subsystems", null));
+        Set<String> subsystems = parseList(System.getProperty("jboss.as.compare.subsystems", null));
 
         if (version == null) {
             System.out.print("Enter legacy AS version: ");
@@ -494,7 +494,7 @@ public class CompareModelVersionsUtil {
     }
 
     private Map<String, ModelNode> createMapIndexedByKey(ModelNode node){
-        Map<String, ModelNode> map = new HashMap<String, ModelNode>();
+        Map<String, ModelNode> map = new HashMap<>();
         if (!node.isDefined()) {
             return map;
         }
@@ -552,8 +552,8 @@ public class CompareModelVersionsUtil {
         Set<String> extraInLegacy = getMissingNames(context, legacySet, currentSet);
         Set<String> extraInCurrent = getMissingNames(context, currentSet, legacySet);
 
-        Set<String> extraInLegacyAfterRuntime = new HashSet<String>(extraInLegacy);
-        Set<String> extraInCurrentAfterRuntime = new HashSet<String>(extraInCurrent);
+        Set<String> extraInLegacyAfterRuntime = new HashSet<>(extraInLegacy);
+        Set<String> extraInCurrentAfterRuntime = new HashSet<>(extraInCurrent);
         if (extraInLegacy.size() > 0 || extraInCurrent.size() > 0) {
             if (!compareRuntime && type.equals(ATTRIBUTES)) {
                 extraInLegacyAfterRuntime = trimRuntimeAttributes(context.getLegacyDefinition().getAttributes(), extraInLegacyAfterRuntime);
@@ -575,7 +575,7 @@ public class CompareModelVersionsUtil {
     }
 
     private Set<String> trimRuntimeAttributes(Map<String, ModelNode> attributes, Set<String> set) {
-        Set<String> runtime = new HashSet<String>(set);
+        Set<String> runtime = new HashSet<>(set);
         for (String name : set) {
             ModelNode desc = attributes.get(name);
             if (desc.hasDefined(STORAGE) && desc.get(STORAGE).asString().equals(Storage.RUNTIME.toString())) {
@@ -586,7 +586,7 @@ public class CompareModelVersionsUtil {
     }
 
     private Set<String> getMissingNames(CompareContext context, Set<String> possiblyMissing, Set<String> names){
-        Set<String> missing = new HashSet<String>(possiblyMissing);
+        Set<String> missing = new HashSet<>(possiblyMissing);
         for (String name : names) {
             missing.remove(name);
         }
@@ -726,7 +726,7 @@ public class CompareModelVersionsUtil {
             if (!parent.hasDefined(name)) {
                 return Collections.emptyMap();
             }
-            Map<String, ModelNode> sorted = new TreeMap<String, ModelNode>();
+            Map<String, ModelNode> sorted = new TreeMap<>();
             for (Property prop : parent.get(name).asPropertyList()) {
                 sorted.put(prop.getName(), prop.getValue());
             }
@@ -747,10 +747,7 @@ public class CompareModelVersionsUtil {
         }
 
         boolean isRuntime() {
-            if (description.hasDefined(STORAGE)) {
-                return description.get(STORAGE).equals("runtime");
-            }
-            return false;
+            return description.hasDefined(STORAGE) && description.get(STORAGE).asString().equals("runtime");
         }
     }
 

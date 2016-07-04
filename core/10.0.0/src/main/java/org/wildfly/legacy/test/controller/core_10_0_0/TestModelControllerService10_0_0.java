@@ -19,7 +19,7 @@
 * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 */
-package org.wildfly.legacy.test.controller.core_7_5_0;
+package org.wildfly.legacy.test.controller.core_10_0_0;
 
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.OP;
 
@@ -34,14 +34,18 @@ import java.util.Properties;
 import java.util.concurrent.Executors;
 
 import org.jboss.as.controller.BootErrorCollector;
+import org.jboss.as.controller.CapabilityRegistry;
 import org.jboss.as.controller.ControlledProcessState;
 import org.jboss.as.controller.ExpressionResolver;
+import org.jboss.as.controller.ManagementModel;
 import org.jboss.as.controller.PathElement;
 import org.jboss.as.controller.ProcessType;
 import org.jboss.as.controller.ProxyController;
+import org.jboss.as.controller.ResourceDefinition;
 import org.jboss.as.controller.RunningMode;
 import org.jboss.as.controller.RunningModeControl;
 import org.jboss.as.controller.audit.AuditLogger;
+import org.jboss.as.controller.capability.registry.ImmutableCapabilityRegistry;
 import org.jboss.as.controller.descriptions.ModelDescriptionConstants;
 import org.jboss.as.controller.extension.ExtensionRegistry;
 import org.jboss.as.controller.persistence.ExtensibleConfigurationPersister;
@@ -85,13 +89,14 @@ import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
 import org.jboss.msc.value.InjectedValue;
+
 /**
  *
- * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
+ * @author Tomaz Cerar
  */
-class   TestModelControllerService7_5_0 extends ModelTestModelControllerService {
+class TestModelControllerService10_0_0 extends ModelTestModelControllerService {
 
-    private final InjectedValue<ContentRepository> injectedContentRepository = new InjectedValue<ContentRepository>();
+    private final InjectedValue<ContentRepository> injectedContentRepository = new InjectedValue<>();
     private final TestModelType type;
     private final RunningModeControl runningModeControl;
     private final PathManagerService pathManagerService;
@@ -100,10 +105,11 @@ class   TestModelControllerService7_5_0 extends ModelTestModelControllerService 
     private final ControlledProcessState processState;
     private final ExtensionRegistry extensionRegistry;
     private volatile Initializer initializer;
+    private final CapabilityRegistry capabilityRegistry;
 
-    TestModelControllerService7_5_0(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
-            TestModelType type, ModelInitializer modelInitializer, DelegatingResourceDefinition rootResourceDefinition, ControlledProcessState processState, ExtensionRegistry extensionRegistry) {
-        super(processType, runningModeControl, null, persister, validateOpsFilter, rootResourceDefinition, processState, Controller74x.INSTANCE);
+    TestModelControllerService10_0_0(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
+                                     TestModelType type, ModelInitializer modelInitializer, DelegatingResourceDefinition rootResourceDefinition, ControlledProcessState processState, ExtensionRegistry extensionRegistry) {
+        super(processType, runningModeControl, null, persister, validateOpsFilter, rootResourceDefinition, processState, Controller90x.INSTANCE);
         this.type = type;
         this.runningModeControl = runningModeControl;
         this.pathManagerService = type == TestModelType.STANDALONE ? new ServerPathManagerService() : new HostPathManagerService();
@@ -111,6 +117,7 @@ class   TestModelControllerService7_5_0 extends ModelTestModelControllerService 
         this.rootResourceDefinition = rootResourceDefinition;
         this.processState = processState;
         this.extensionRegistry = extensionRegistry;
+        this.capabilityRegistry = new CapabilityRegistry(type == TestModelType.STANDALONE);
 
         if (type == TestModelType.STANDALONE) {
             initializer = new ServerInitializer();
@@ -131,9 +138,9 @@ class   TestModelControllerService7_5_0 extends ModelTestModelControllerService 
         }
     }
 
-    static TestModelControllerService7_5_0 create(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
-            TestModelType type, ModelInitializer modelInitializer, ExtensionRegistry extensionRegistry) {
-        return new TestModelControllerService7_5_0(processType, runningModeControl, persister, validateOpsFilter, type, modelInitializer, new DelegatingResourceDefinition(type), new ControlledProcessState(true), extensionRegistry);
+    static TestModelControllerService10_0_0 create(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
+                                                   TestModelType type, ModelInitializer modelInitializer, ExtensionRegistry extensionRegistry) {
+        return new TestModelControllerService10_0_0(processType, runningModeControl, persister, validateOpsFilter, type, modelInitializer, new DelegatingResourceDefinition(type), new ControlledProcessState(true), extensionRegistry);
     }
 
     InjectedValue<ContentRepository> getContentRepositoryInjector(){
@@ -150,16 +157,20 @@ class   TestModelControllerService7_5_0 extends ModelTestModelControllerService 
     }
 
     @Override
-    protected void initCoreModel(Resource rootResource, ManagementResourceRegistration rootRegistration, Resource modelControllerResource) {
+    protected void initCoreModel(ManagementModel managementModel, Resource modelControllerResource) {
+        //super.initCoreModel(managementModel, modelControllerResource);
+        Resource rootResource = managementModel.getRootResource();
+        ManagementResourceRegistration rootRegistration = managementModel.getRootResourceRegistration();
+
         //See server HttpManagementAddHandler
         System.setProperty("jboss.as.test.disable.runtime", "1");
         if (type == TestModelType.STANDALONE) {
             initializer.initCoreModel(rootResource, rootRegistration, modelControllerResource);
 
-        } else if (type == TestModelType.HOST){
+        } else if (type == TestModelType.HOST) {
             initializer.initCoreModel(rootResource, rootRegistration, modelControllerResource);
 
-        } else if (type == TestModelType.DOMAIN){
+        } else if (type == TestModelType.DOMAIN) {
             initializer.initCoreModel(rootResource, rootRegistration, modelControllerResource);
         }
         if (modelInitializer != null) {
@@ -295,7 +306,13 @@ class   TestModelControllerService7_5_0 extends ModelTestModelControllerService 
             }
 
             @Override
-            public void unregisterRemoteHost(String id, Long remoteConnectionId) {
+            public void unregisterRemoteHost(final String id, Long remoteConnectionId, boolean cleanUnregistration){
+
+            }
+
+            @Override
+            public ImmutableCapabilityRegistry getCapabilityRegistry() {
+                return null;
             }
 
             @Override
@@ -405,8 +422,13 @@ class   TestModelControllerService7_5_0 extends ModelTestModelControllerService 
                     vaultReader,
                     extensionRegistry,
                     parallelBoot,
-                    pathManagerService, authorizer,
-                    AuditLogger.NO_OP_LOGGER, BOOT_ERROR_COLLECTOR));
+                    pathManagerService,
+                    null,
+                    authorizer,
+                    AuditLogger.NO_OP_LOGGER,
+                    getMutableRootResourceRegistrationProvider(),
+                    BOOT_ERROR_COLLECTOR,
+                    capabilityRegistry));
         }
 
         @Override
@@ -425,7 +447,7 @@ class   TestModelControllerService7_5_0 extends ModelTestModelControllerService 
         final HostControllerEnvironment env = createHostControllerEnvironment();
         final LocalHostControllerInfoImpl info = createLocalHostControllerInfo(env);
         final IgnoredDomainResourceRegistry ignoredRegistry = new IgnoredDomainResourceRegistry(info);
-        final HostControllerConfigurationPersister persister = new HostControllerConfigurationPersister(env, info, Executors.newCachedThreadPool(), extensionRegistry);
+        final HostControllerConfigurationPersister persister = new HostControllerConfigurationPersister(env, info, Executors.newCachedThreadPool(), extensionRegistry, extensionRegistry);
         final HostFileRepository hostFileRepository = createHostFileRepository();
         final DomainController domainController = createDomainController(env, info);
 
@@ -476,6 +498,7 @@ class   TestModelControllerService7_5_0 extends ModelTestModelControllerService 
                     injectedContentRepository.getValue(),
                     domainController,
                     extensionRegistry,
+                    extensionRegistry,
                     null /*vaultReader*/,
                     ignoredRegistry,
                     processState,
@@ -500,30 +523,46 @@ class   TestModelControllerService7_5_0 extends ModelTestModelControllerService 
             final IgnoredDomainResourceRegistry ignoredRegistry = new IgnoredDomainResourceRegistry(info);
             final ExtensibleConfigurationPersister persister = new NullConfigurationPersister();
             final HostFileRepository hostFileRepository = createHostFileRepository();
+            final DomainController domainController = createDomainController(env, info);
 
-            DomainRootDefinition domainDefinition = new DomainRootDefinition(env, persister, injectedContentRepository.getValue(),
-                    hostFileRepository, true, info, extensionRegistry, null, pathManagerService, authorizer);
+            DomainRootDefinition domainDefinition = new DomainRootDefinition(
+                    domainController,
+                    env,
+                    persister,
+                    injectedContentRepository.getValue(),
+                    hostFileRepository,
+                    true,
+                    info,
+                    extensionRegistry,
+                    null,
+                    pathManagerService,
+                    authorizer,
+                    null,
+                    getMutableRootResourceRegistrationProvider());
             domainDefinition.initialize(rootRegistration);
             rootResourceDefinition.setDelegate(domainDefinition);
 
             HostModelUtil.createRootRegistry(
                     rootRegistration,
                     env, ignoredRegistry,
-                    new HostModelRegistrar() {
-
-                        @Override
-                        public void registerHostModel(String hostName, ManagementResourceRegistration root) {
-                        }
-                    },processType, authorizer, modelControllerResource);
+                    (hostName, root) -> {},
+                    processType,
+                    authorizer,
+                    modelControllerResource);
         }
 
     }
 
-    static class DelegatingResourceDefinition extends ModelTestModelControllerService.DelegatingResourceDefinition {
+    static class DelegatingResourceDefinition extends org.jboss.as.controller.DelegatingResourceDefinition {
         private final TestModelType type;
 
         public DelegatingResourceDefinition(TestModelType type) {
             this.type = type;
+        }
+
+        @Override
+        public void setDelegate(ResourceDefinition delegate) {
+            super.setDelegate(delegate);
         }
 
         @Override

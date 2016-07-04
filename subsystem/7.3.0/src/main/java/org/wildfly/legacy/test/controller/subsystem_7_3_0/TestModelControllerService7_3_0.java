@@ -27,11 +27,13 @@ import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SUB
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Locale;
 
 import org.jboss.as.controller.BootContext;
 import org.jboss.as.controller.ControlledProcessState;
 import org.jboss.as.controller.Extension;
 import org.jboss.as.controller.RunningModeControl;
+import org.jboss.as.controller.descriptions.DescriptionProvider;
 import org.jboss.as.controller.extension.ExtensionRegistry;
 import org.jboss.as.controller.persistence.ConfigurationPersistenceException;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
@@ -63,12 +65,20 @@ class TestModelControllerService7_3_0 extends ModelTestModelControllerService {
                                     final AdditionalInitialization additionalInit, final RunningModeControl runningModeControl, final ExtensionRegistry extensionRegistry,
                                     final StringConfigurationPersister persister, final ModelTestOperationValidatorFilter validateOpsFilter, final boolean registerTransformers) {
         super(AdditionalInitializationUtil.getProcessType(additionalInit), runningModeControl, extensionRegistry.getTransformerRegistry(), persister, validateOpsFilter,
-                ModelTestModelControllerService.DESC_PROVIDER, new ControlledProcessState(true), Controller73x.INSTANCE);
+                DESC_PROVIDER, new ControlledProcessState(true), Controller73x.INSTANCE);
         this.extensionRegistry = extensionRegistry;
         this.additionalInit = additionalInit;
         this.controllerInitializer = controllerInitializer;
         this.mainExtension = mainExtension;
     }
+
+    private static final DescriptionProvider DESC_PROVIDER = new DescriptionProvider() {
+        public ModelNode getModelDescription(Locale locale) {
+            ModelNode model = new ModelNode();
+            model.get("description").set("The test model controller");
+            return model;
+        }
+    };
 
     protected void initModel(Resource rootResource, ManagementResourceRegistration rootRegistration) {
         initModel(rootResource, rootRegistration, null);

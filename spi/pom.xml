@@ -29,7 +29,8 @@
     <parent>
         <groupId>org.wildfly.legacy.test</groupId>
         <artifactId>wildfly-legacy-test-parent</artifactId>
-        <version>1.0.1.Alpha1-SNAPSHOT</version>
+        <version>2.0.0.Alpha1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>wildfly-legacy-spi-parent</artifactId>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ JBoss, Home of Professional Open Source.
   ~ Copyright 2010, Red Hat, Inc., and individual contributors
@@ -33,14 +33,14 @@
       <relativePath>../pom.xml</relativePath>
    </parent>
 
-   <artifactId>wildfly-legacy-subsystem-7.5.0</artifactId>
+   <artifactId>wildfly-legacy-subsystem-10.0.0</artifactId>
 
-   <name>WildFly: Legacy Test 7.5.0 Subsystem Controller</name>
-   <description>The legacy Test 7.5.0 subsystem controller</description>
+   <name>WildFly: Legacy Test 10.0.0 Subsystem Controller</name>
+   <description>The legacy Test 10.0.0 subsystem controller</description>
    <packaging>jar</packaging>
 
    <properties>
-      <property.old.as.version>7.5.0.Final-redhat-21</property.old.as.version>
+      <property.old.as.version>2.0.10.Final</property.old.as.version>
    </properties>
 
    <dependencies>
@@ -72,16 +72,16 @@
          <groupId>org.wildfly.legacy.test</groupId>
          <artifactId>wildfly-legacy-spi</artifactId>
       </dependency>
-
+      
       <dependency>
-	      <groupId>org.jboss.as</groupId>
-	      <artifactId>jboss-as-controller</artifactId>
+	      <groupId>org.wildfly.core</groupId>
+	      <artifactId>wildfly-controller</artifactId>
 	      <version>${property.old.as.version}</version>
 	      <scope>provided</scope>
       </dependency>
       <dependency>
-	      <groupId>org.jboss.as</groupId>
-	      <artifactId>jboss-as-server</artifactId>
+	      <groupId>org.wildfly.core</groupId>
+	      <artifactId>wildfly-server</artifactId>
 	      <version>${property.old.as.version}</version>
 	      <scope>provided</scope>
       </dependency>

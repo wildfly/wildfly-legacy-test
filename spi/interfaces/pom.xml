@@ -24,35 +24,44 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-   <parent>
-      <groupId>org.wildfly.legacy.test</groupId>
-      <artifactId>wildfly-legacy-spi-parent</artifactId>
-      <version>1.0.1.Alpha1-SNAPSHOT</version>
-   </parent>
+    <parent>
+        <groupId>org.wildfly.legacy.test</groupId>
+        <artifactId>wildfly-legacy-spi-parent</artifactId>
+        <version>2.0.0.Alpha1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-   <artifactId>wildfly-legacy-spi</artifactId>
+    <artifactId>wildfly-legacy-spi</artifactId>
 
-   <name>WildFly: Legacy Test SPI</name>
-   <description>The legacy Test SPI</description>
-   <packaging>jar</packaging>
+    <name>WildFly: Legacy Test SPI</name>
+    <description>The legacy Test SPI</description>
+    <packaging>jar</packaging>
 
-   <properties>
-   </properties>
 
-   <dependencies>
-      <dependency>
-         <groupId>org.wildfly.legacy.test</groupId>
-         <artifactId>wildfly-legacy-spi-dependencies</artifactId>
-         <type>pom</type>
-         <scope>provided</scope>
-      </dependency>
-   </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.wildfly.legacy.test</groupId>
+            <artifactId>wildfly-legacy-spi-dependencies</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
-   <build>
-      <plugins>
-      </plugins>
-   </build>
+    <build>
+        <sourceDirectory>target/filtered-sources/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <filtering>true</filtering>
+                <targetPath>../filtered-sources/java</targetPath>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 
 </project>
