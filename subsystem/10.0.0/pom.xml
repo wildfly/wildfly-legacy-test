@@ -24,72 +24,72 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-   <parent>
-      <groupId>org.wildfly.legacy.test</groupId>
-      <artifactId>wildfly-legacy-subsystem-parent</artifactId>
-      <version>2.0.0.Alpha1-SNAPSHOT</version>
-      <relativePath>../pom.xml</relativePath>
-   </parent>
+    <parent>
+        <groupId>org.wildfly.legacy.test</groupId>
+        <artifactId>wildfly-legacy-subsystem-parent</artifactId>
+        <version>2.0.0.Alpha1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-   <artifactId>wildfly-legacy-subsystem-10.0.0</artifactId>
+    <artifactId>wildfly-legacy-subsystem-10.0.0</artifactId>
 
-   <name>WildFly: Legacy Test 10.0.0 Subsystem Controller</name>
-   <description>The legacy Test 10.0.0 subsystem controller</description>
-   <packaging>jar</packaging>
+    <name>WildFly: Legacy Test 10.0.0 Subsystem Controller</name>
+    <description>The legacy Test 10.0.0 subsystem controller</description>
+    <packaging>jar</packaging>
 
-   <properties>
-      <property.old.as.version>2.0.10.Final</property.old.as.version>
-   </properties>
+    <properties>
+        <property.old.as.version>2.0.10.Final</property.old.as.version>
+    </properties>
 
-   <dependencies>
-      <dependency>
-         <groupId>org.wildfly.legacy.test</groupId>
-         <artifactId>wildfly-legacy-spi-dependencies</artifactId>
-         <type>pom</type>
-         <scope>provided</scope>
-         <exclusions>
-            <exclusion>
-               <groupId>org.wildfly.legacy.test.direct</groupId>
-               <artifactId>wildfly-controller</artifactId>
-            </exclusion>
-            <exclusion>
-               <groupId>org.wildfly.legacy.test.direct</groupId>
-               <artifactId>wildfly-core-model-test-framework</artifactId>
-            </exclusion>
-            <exclusion>
-               <groupId>org.wildfly.legacy.test.direct</groupId>
-               <artifactId>wildfly-deployment-repository</artifactId>
-            </exclusion>
-            <exclusion>
-               <groupId>org.wildfly.legacy.test.direct</groupId>
-               <artifactId>wildfly-server</artifactId>
-            </exclusion>
-         </exclusions>
-      </dependency>
-      <dependency>
-         <groupId>org.wildfly.legacy.test</groupId>
-         <artifactId>wildfly-legacy-spi</artifactId>
-      </dependency>
-      
-      <dependency>
-	      <groupId>org.wildfly.core</groupId>
-	      <artifactId>wildfly-controller</artifactId>
-	      <version>${property.old.as.version}</version>
-	      <scope>provided</scope>
-      </dependency>
-      <dependency>
-	      <groupId>org.wildfly.core</groupId>
-	      <artifactId>wildfly-server</artifactId>
-	      <version>${property.old.as.version}</version>
-	      <scope>provided</scope>
-      </dependency>
-   </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.wildfly.legacy.test</groupId>
+            <artifactId>wildfly-legacy-spi-dependencies</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.wildfly.legacy.test.direct</groupId>
+                    <artifactId>wildfly-controller</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.wildfly.legacy.test.direct</groupId>
+                    <artifactId>wildfly-core-model-test-framework</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.wildfly.legacy.test.direct</groupId>
+                    <artifactId>wildfly-deployment-repository</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.wildfly.legacy.test.direct</groupId>
+                    <artifactId>wildfly-server</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.legacy.test</groupId>
+            <artifactId>wildfly-legacy-spi</artifactId>
+        </dependency>
 
-   <build>
-      <plugins>
-      </plugins>
-   </build>
+        <dependency>
+            <groupId>org.wildfly.core</groupId>
+            <artifactId>wildfly-controller</artifactId>
+            <version>${property.old.as.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.core</groupId>
+            <artifactId>wildfly-server</artifactId>
+            <version>${property.old.as.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+        </plugins>
+    </build>
 
 </project>

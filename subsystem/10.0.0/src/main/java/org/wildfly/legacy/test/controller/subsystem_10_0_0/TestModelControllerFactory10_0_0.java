@@ -35,8 +35,7 @@ import org.wildfly.legacy.test.spi.subsystem.TestModelControllerFactory;
 
 /**
  *
- * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
- * @author <a href="mailto:jperkins@redhat.com">James R. Perkins</a>
+ * @author Tomaz Cerar
  */
 public class TestModelControllerFactory10_0_0 implements TestModelControllerFactory {
 

@@ -37,6 +37,7 @@ import org.jboss.as.controller.Extension;
 import org.jboss.as.controller.RunningModeControl;
 import org.jboss.as.controller.descriptions.DescriptionProvider;
 import org.jboss.as.controller.extension.ExtensionRegistry;
+import org.jboss.as.controller.operations.global.GlobalNotifications;
 import org.jboss.as.controller.persistence.ConfigurationPersistenceException;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
 import org.jboss.as.controller.registry.Resource;
@@ -81,6 +82,13 @@ class TestModelControllerService7_5_0 extends ModelTestModelControllerService {
             return model;
         }
     };
+
+    @Override
+    protected void initCoreModel(Resource rootResource, ManagementResourceRegistration rootRegistration, Resource modelControllerResource) {
+        super.initCoreModel(rootResource, rootRegistration, modelControllerResource);
+        // register the global notifications so there is no warning that emitted notifications are not described by the resource.
+        GlobalNotifications.registerGlobalNotifications(rootRegistration, processType);
+    }
 
     @Override
     protected void initExtraModel(Resource rootResource, ManagementResourceRegistration rootRegistration) {

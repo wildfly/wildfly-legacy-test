@@ -52,6 +52,7 @@ public class AdditionalInitializationUtil {
     public static void doExtraInitialization(AdditionalInitialization additionalInit, ControllerInitializer controllerInitializer, ExtensionRegistry extensionRegistry, Resource rootResource, ManagementResourceRegistration rootRegistration, TestModelControllerService10_0_0 controller) {
         controllerInitializer.setTestModelControllerAccessor(new TestControllerAccessor10_0_0(controller));
         controllerInitializer.initializeModel(rootResource, rootRegistration);
+        //todo support for capability registry
         additionalInit.initializeExtraSubystemsAndModel(extensionRegistry, rootResource, rootRegistration);
     }
 

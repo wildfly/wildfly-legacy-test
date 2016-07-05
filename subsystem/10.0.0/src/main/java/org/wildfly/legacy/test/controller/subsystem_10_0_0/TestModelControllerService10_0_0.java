@@ -40,6 +40,7 @@ import org.jboss.as.controller.SimpleResourceDefinition;
 import org.jboss.as.controller.descriptions.NonResolvingResourceDescriptionResolver;
 import org.jboss.as.controller.extension.ExtensionRegistry;
 import org.jboss.as.controller.extension.ExtensionRegistryType;
+import org.jboss.as.controller.operations.global.GlobalNotifications;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
 import org.jboss.as.controller.registry.Resource;
 import org.jboss.as.model.test.ModelTestModelControllerService;
@@ -102,6 +103,12 @@ public class TestModelControllerService10_0_0 extends ModelTestModelControllerSe
         super.initModel(managementModel, modelControllerResource);
     }
 
+    @Override
+    protected void initCoreModel(ManagementModel managementModel, Resource modelControllerResource) {
+        super.initCoreModel(managementModel, modelControllerResource);
+        // register the global notifications so there is no warning that emitted notifications are not described by the resource.
+        GlobalNotifications.registerGlobalNotifications(managementModel.getRootResourceRegistration(), processType);
+    }
 
     @Override
     protected void preBoot(List<ModelNode> bootOperations, boolean rollbackOnRuntimeFailure) {

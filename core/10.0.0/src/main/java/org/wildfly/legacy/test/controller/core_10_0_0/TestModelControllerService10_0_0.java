@@ -162,8 +162,6 @@ class TestModelControllerService10_0_0 extends ModelTestModelControllerService {
         Resource rootResource = managementModel.getRootResource();
         ManagementResourceRegistration rootRegistration = managementModel.getRootResourceRegistration();
 
-        //See server HttpManagementAddHandler
-        System.setProperty("jboss.as.test.disable.runtime", "1");
         if (type == TestModelType.STANDALONE) {
             initializer.initCoreModel(rootResource, rootRegistration, modelControllerResource);
 
@@ -181,7 +179,6 @@ class TestModelControllerService10_0_0 extends ModelTestModelControllerService {
     @Override
     public void stop(StopContext context) {
         super.stop(context);
-        System.clearProperty("jboss.as.test.disable.runtime");
     }
 
     private ServerEnvironment createStandaloneServerEnvironment() {
