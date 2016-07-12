@@ -41,9 +41,4 @@
         <module>10.0.0</module>
     </modules>
 
-    <build>
-        <plugins>
-        </plugins>
-    </build>
-
 </project>

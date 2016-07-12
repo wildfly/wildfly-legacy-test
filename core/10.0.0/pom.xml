@@ -27,18 +27,24 @@
       <relativePath>../pom.xml</relativePath>
    </parent>
 
-   <artifactId>wildfly-legacy-core-wildfly-10.0</artifactId>
+   <artifactId>wildfly-legacy-core-10.0.0</artifactId>
 
    <name>WildFly: Legacy Test 2.0.x Core Controller</name>
    <description>The legacy Test SPI 2.0.x core controller</description>
    <packaging>jar</packaging>
 
    <properties>
-      <wildfly.current.version>3.0.0.Alpha3-SNAPSHOT</wildfly.current.version>
+      <wildfly.current.version>2.0.10.Final</wildfly.current.version>
       <property.old.wildfly-core>2.0.10.Final</property.old.wildfly-core>
    </properties>
 
    <dependencies>
+      <dependency>
+         <groupId>org.wildfly.core</groupId>
+         <artifactId>wildfly-core-model-test-framework</artifactId>
+         <version>${property.old.wildfly-core}</version>
+         <scope>provided</scope>
+      </dependency>
       <dependency>
          <groupId>org.wildfly.legacy.test</groupId>
          <artifactId>wildfly-legacy-spi-dependencies</artifactId>
@@ -86,6 +92,7 @@
          <version>${property.old.wildfly-core}</version>
          <scope>provided</scope>
       </dependency>
+
    </dependencies>
 
    <build>

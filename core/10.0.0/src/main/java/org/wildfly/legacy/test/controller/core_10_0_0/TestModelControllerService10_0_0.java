@@ -44,6 +44,7 @@ import org.jboss.as.controller.audit.AuditLogger;
 import org.jboss.as.controller.capability.registry.ImmutableCapabilityRegistry;
 import org.jboss.as.controller.descriptions.ModelDescriptionConstants;
 import org.jboss.as.controller.extension.ExtensionRegistry;
+import org.jboss.as.controller.operations.global.GlobalNotifications;
 import org.jboss.as.controller.persistence.ExtensibleConfigurationPersister;
 import org.jboss.as.controller.persistence.NullConfigurationPersister;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
@@ -56,6 +57,7 @@ import org.jboss.as.domain.controller.DomainController;
 import org.jboss.as.domain.controller.LocalHostControllerInfo;
 import org.jboss.as.domain.controller.SlaveRegistrationException;
 import org.jboss.as.domain.controller.resources.DomainRootDefinition;
+import org.jboss.as.domain.management.CoreManagementResourceDefinition;
 import org.jboss.as.host.controller.HostControllerConfigurationPersister;
 import org.jboss.as.host.controller.HostControllerEnvironment;
 import org.jboss.as.host.controller.HostModelUtil;
@@ -158,17 +160,9 @@ class TestModelControllerService10_0_0 extends ModelTestModelControllerService {
         Resource rootResource = managementModel.getRootResource();
         ManagementResourceRegistration rootRegistration = managementModel.getRootResourceRegistration();
 
-        if (type == TestModelType.STANDALONE) {
-            initializer.initCoreModel(rootResource, rootRegistration, modelControllerResource);
-
-        } else if (type == TestModelType.HOST) {
-            initializer.initCoreModel(rootResource, rootRegistration, modelControllerResource);
-
-        } else if (type == TestModelType.DOMAIN) {
-            initializer.initCoreModel(rootResource, rootRegistration, modelControllerResource);
-        }
+        initializer.initCoreModel(rootResource, rootRegistration, modelControllerResource);
         if (modelInitializer != null) {
-            modelInitializer.populateModel(rootResource);
+            modelInitializer.populateModel(managementModel);
         }
     }
 
@@ -542,6 +536,7 @@ class TestModelControllerService10_0_0 extends ModelTestModelControllerService {
                     processType,
                     authorizer,
                     modelControllerResource);
+            CoreManagementResourceDefinition.registerDomainResource(rootResource, null);
         }
 
     }
@@ -580,6 +575,14 @@ class TestModelControllerService10_0_0 extends ModelTestModelControllerService {
                 return;
             }
             super.registerAttributes(resourceRegistration);
+        }
+
+        @Override
+        public void registerNotifications(ManagementResourceRegistration resourceRegistration) {
+            if (type == TestModelType.DOMAIN) {
+                return;
+            }
+            super.registerNotifications(resourceRegistration);
         }
     }
 

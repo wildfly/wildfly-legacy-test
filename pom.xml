@@ -45,8 +45,8 @@
 
         <!-- use wildfly core 1.x as 2.x brought it breaking change in ModelInitializer that we cannot use anymore with EAP6 based legacy controllers -->
       <wildfly.current.version>1.0.2.Final</wildfly.current.version>
-      <!--<wildfly.core.legacy.version>1.0.2.Final</wildfly.core.legacy.version>
-      <wildfly.current.version>2.0.10.Final</wildfly.current.version>-->
+      <!--<wildfly.core.legacy.version>1.0.2.Final</wildfly.core.legacy.version-->
+      <!--<wildfly.current.version>2.0.10.Final</wildfly.current.version>-->
 
     </properties>
 
