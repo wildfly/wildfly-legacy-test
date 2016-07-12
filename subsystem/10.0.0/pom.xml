@@ -34,7 +34,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <property.old.as.version>2.0.10.Final</property.old.as.version>
+        <property.old.wildfly-core>2.1.0.Final</property.old.wildfly-core>
     </properties>
 
     <dependencies>
@@ -70,13 +70,13 @@
         <dependency>
             <groupId>org.wildfly.core</groupId>
             <artifactId>wildfly-controller</artifactId>
-            <version>${property.old.as.version}</version>
+            <version>${property.old.wildfly-core}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.wildfly.core</groupId>
             <artifactId>wildfly-server</artifactId>
-            <version>${property.old.as.version}</version>
+            <version>${property.old.wildfly-core}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

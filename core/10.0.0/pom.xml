@@ -34,8 +34,8 @@
    <packaging>jar</packaging>
 
    <properties>
-      <wildfly.current.version>2.0.10.Final</wildfly.current.version>
-      <property.old.wildfly-core>2.0.10.Final</property.old.wildfly-core>
+      <wildfly.current.version>2.1.0.Final</wildfly.current.version>
+      <property.old.wildfly-core>2.1.0.Final</property.old.wildfly-core>
    </properties>
 
    <dependencies>

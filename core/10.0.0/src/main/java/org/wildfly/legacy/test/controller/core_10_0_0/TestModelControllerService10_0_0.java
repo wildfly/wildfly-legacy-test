@@ -44,7 +44,6 @@ import org.jboss.as.controller.audit.AuditLogger;
 import org.jboss.as.controller.capability.registry.ImmutableCapabilityRegistry;
 import org.jboss.as.controller.descriptions.ModelDescriptionConstants;
 import org.jboss.as.controller.extension.ExtensionRegistry;
-import org.jboss.as.controller.operations.global.GlobalNotifications;
 import org.jboss.as.controller.persistence.ExtensibleConfigurationPersister;
 import org.jboss.as.controller.persistence.NullConfigurationPersister;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
@@ -65,6 +64,7 @@ import org.jboss.as.host.controller.HostModelUtil.HostModelRegistrar;
 import org.jboss.as.host.controller.HostPathManagerService;
 import org.jboss.as.host.controller.HostRunningModeControl;
 import org.jboss.as.host.controller.ignored.IgnoredDomainResourceRegistry;
+import org.jboss.as.host.controller.mgmt.DomainHostExcludeRegistry;
 import org.jboss.as.host.controller.model.host.HostResourceDefinition;
 import org.jboss.as.host.controller.operations.LocalHostControllerInfoImpl;
 import org.jboss.as.model.test.ModelTestModelControllerService;
@@ -511,6 +511,7 @@ class TestModelControllerService10_0_0 extends ModelTestModelControllerService {
             final ExtensibleConfigurationPersister persister = new NullConfigurationPersister();
             final HostFileRepository hostFileRepository = createHostFileRepository();
             final DomainController domainController = createDomainController(env, info);
+            final DomainHostExcludeRegistry domainHostExcludeRegistry = new DomainHostExcludeRegistry();
 
             DomainRootDefinition domainDefinition = new DomainRootDefinition(
                     domainController,
@@ -525,6 +526,7 @@ class TestModelControllerService10_0_0 extends ModelTestModelControllerService {
                     pathManagerService,
                     authorizer,
                     null,
+                    domainHostExcludeRegistry,
                     getMutableRootResourceRegistrationProvider());
             domainDefinition.initialize(rootRegistration);
             rootResourceDefinition.setDelegate(domainDefinition);
