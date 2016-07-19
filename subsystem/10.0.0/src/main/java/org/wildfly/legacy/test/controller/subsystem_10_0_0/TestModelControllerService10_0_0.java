@@ -91,7 +91,7 @@ public class TestModelControllerService10_0_0 extends ModelTestModelControllerSe
         //rootRegistration.registerOperationHandler(RootResourceHack.DEFINITION, RootResourceHack.INSTANCE);
 
         //extensionRegistry.setSubsystemParentResourceRegistrations(rootRegistration, deployments);
-        AdditionalInitializationUtil.doExtraInitialization(additionalInit, controllerInitializer, extensionRegistry, rootResource, rootRegistration, this);
+        AdditionalInitializationUtil.doExtraInitialization(additionalInit, controllerInitializer, extensionRegistry, managementModel, this);
     }
 
     @Override

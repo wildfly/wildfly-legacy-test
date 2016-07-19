@@ -18,11 +18,10 @@
 
 package org.jboss.as.subsystem.test;
 
+import org.jboss.as.controller.ManagementModel;
 import org.jboss.as.controller.ProcessType;
 import org.jboss.as.controller.RunningMode;
 import org.jboss.as.controller.extension.ExtensionRegistry;
-import org.jboss.as.controller.registry.ManagementResourceRegistration;
-import org.jboss.as.controller.registry.Resource;
 import org.jboss.as.server.ServerEnvironment;
 import org.jboss.as.subsystem.test.ControllerInitializer.TestControllerAccessor;
 import org.wildfly.legacy.test.controller.subsystem_10_0_0.TestModelControllerService10_0_0;
@@ -45,11 +44,10 @@ public class AdditionalInitializationUtil {
     }
 
 
-    public static void doExtraInitialization(AdditionalInitialization additionalInit, ControllerInitializer controllerInitializer, ExtensionRegistry extensionRegistry, Resource rootResource, ManagementResourceRegistration rootRegistration, TestModelControllerService10_0_0 controller) {
+    public static void doExtraInitialization(AdditionalInitialization additionalInit, ControllerInitializer controllerInitializer, ExtensionRegistry extensionRegistry, ManagementModel managementModel, TestModelControllerService10_0_0 controller) {
         controllerInitializer.setTestModelControllerAccessor(new TestControllerAccessor10_0_0(controller));
-        controllerInitializer.initializeModel(rootResource, rootRegistration);
-        //todo support for capability registry
-        additionalInit.initializeExtraSubystemsAndModel(extensionRegistry, rootResource, rootRegistration);
+        controllerInitializer.initializeModel(managementModel.getRootResource(), managementModel.getRootResourceRegistration());
+        additionalInit.initializeExtraSubystemsAndModel(extensionRegistry, managementModel.getRootResource(), managementModel.getRootResourceRegistration(), managementModel.getCapabilityRegistry());
     }
 
     private static class TestControllerAccessor10_0_0 implements TestControllerAccessor {
