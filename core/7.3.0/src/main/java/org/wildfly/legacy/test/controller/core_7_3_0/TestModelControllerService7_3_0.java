@@ -51,6 +51,7 @@ import org.jboss.as.domain.controller.DomainController;
 import org.jboss.as.domain.controller.LocalHostControllerInfo;
 import org.jboss.as.domain.controller.SlaveRegistrationException;
 import org.jboss.as.domain.controller.resources.DomainRootDefinition;
+import org.jboss.as.domain.management.CoreManagementResourceDefinition;
 import org.jboss.as.host.controller.HostControllerConfigurationPersister;
 import org.jboss.as.host.controller.HostControllerEnvironment;
 import org.jboss.as.host.controller.HostModelUtil;
@@ -512,6 +513,7 @@ class TestModelControllerService7_3_0 extends ModelTestModelControllerService {
                         public void registerHostModel(String hostName, ManagementResourceRegistration root) {
                         }
                     },processType, authorizer);
+            CoreManagementResourceDefinition.registerDomainResource(rootResource, null);
         }
 
     }
