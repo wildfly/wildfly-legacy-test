@@ -41,7 +41,9 @@
                         <manifest>
                             <mainClass>org.wildfly.legacy.util.CompareModelVersionsUtil</mainClass>
                         </manifest>
+                        
                     </archive>
+
                 </configuration>
             </plugin>
         </plugins>
@@ -55,7 +57,7 @@
         <dependency>
             <groupId>org.wildfly.core</groupId>
             <artifactId>wildfly-controller</artifactId>
-            <version>2.0.10.Final</version>
+            <version>3.0.0.Beta26</version>
         </dependency>
     </dependencies>
 

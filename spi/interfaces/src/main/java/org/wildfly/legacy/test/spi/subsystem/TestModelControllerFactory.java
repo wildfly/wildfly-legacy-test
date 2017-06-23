@@ -35,6 +35,7 @@ import org.jboss.as.subsystem.test.ControllerInitializer;
  *
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
  */
+@FunctionalInterface
 public interface TestModelControllerFactory {
 
     ModelTestModelControllerService create(final Extension mainExtension, final ControllerInitializer controllerInitializer,

@@ -19,7 +19,7 @@ package org.wildfly.legacy.util;
 
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.HOST;
 
-import java.io.File;
+import java.nio.file.Path;
 
 import org.jboss.as.controller.PathAddress;
 import org.jboss.as.controller.PathElement;
@@ -40,16 +40,16 @@ public class DumpDomainResourceDefinitionUtil {
         ModelNode resourceDefinition = Tools.getCurrentRunningDomainResourceDefinition();
         System.out.println("Dumping domain model....");
 
-        final File projectDir = Tools.getProjectDirectory();
-        final File target = new File(projectDir, "target");
-        File file = new File(target, ResourceType.DOMAIN.toString().toLowerCase() + "-resource-definition-running.dmr");
+        final Path projectDir = Tools.getProjectDirectory();
+        final Path target = projectDir.resolve("target");
+        Path file = target.resolve(ResourceType.DOMAIN.toString().toLowerCase() + "-resource-definition-running.dmr");
 
         Tools.serializeModeNodeToFile(resourceDefinition, file);
 
         resourceDefinition = Tools.getCurrentRunningResourceDefinition(PathAddress.pathAddress(PathElement.pathElement(HOST, "master")));
         System.out.println("Dumping host model....");
 
-        file = new File(target, ResourceType.HOST.toString().toLowerCase() + "-resource-definition-running.dmr");
+        file = target.resolve(ResourceType.HOST.toString().toLowerCase() + "-resource-definition-running.dmr");
         Tools.serializeModeNodeToFile(resourceDefinition, file);
 
     }

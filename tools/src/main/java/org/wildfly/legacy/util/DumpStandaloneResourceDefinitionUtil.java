@@ -17,7 +17,7 @@
  */
 package org.wildfly.legacy.util;
 
-import java.io.File;
+import java.nio.file.Path;
 
 import org.jboss.as.controller.PathAddress;
 import org.jboss.dmr.ModelNode;
@@ -27,15 +27,16 @@ import org.jboss.dmr.ModelNode;
  * If this is for a released version so that it can be used for comparisons in the future, this file should be copied to
  * {@code src/test/resources/legacy-models} and {@code running} replaced with the real version of the running server, e.g.
  * {@code src/test/resources/legacy-models/standalone-resource-definition-7.1.2.Final}.
+ *
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
  */
 public class DumpStandaloneResourceDefinitionUtil {
 
     public static void main(String[] args) throws Exception {
         ModelNode resourceDefinition = Tools.getCurrentRunningResourceDefinition(PathAddress.EMPTY_ADDRESS);
-        final File projectDir = Tools.getProjectDirectory();
-        final File target = new File(projectDir, "target");
-        File file = new File(target, ResourceType.STANDALONE.toString().toLowerCase() + "-resource-definition-running.dmr");
+        final Path projectDir = Tools.getProjectDirectory();
+        final Path target = projectDir.resolve("target");
+        Path file = target.resolve(ResourceType.STANDALONE.toString().toLowerCase() + "-resource-definition-running.dmr");
 
         Tools.serializeModeNodeToFile(resourceDefinition, file);
     }

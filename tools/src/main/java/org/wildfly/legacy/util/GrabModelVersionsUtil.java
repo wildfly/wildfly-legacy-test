@@ -21,6 +21,7 @@ import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SUB
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.XML_NAMESPACES;
 
 import java.io.File;
+import java.nio.file.Path;
 
 import org.jboss.dmr.ModelNode;
 import org.jboss.dmr.Property;
@@ -70,9 +71,9 @@ public class GrabModelVersionsUtil {
         System.out.println("</table>");
 
         System.out.println("----------------");
-        final File projectDir = Tools.getProjectDirectory();
-        final File target = new File(projectDir, "target");
-        File file = new File(target, "standalone-model-versions-running.dmr");
+        final Path projectDir = Tools.getProjectDirectory();
+        final Path target = projectDir.resolve("target");
+        Path file = target.resolve("standalone-model-versions-running.dmr");
 
         Tools.serializeModeNodeToFile(versions, file);
     }

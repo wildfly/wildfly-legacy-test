@@ -1,9 +1,15 @@
 {
-    "core" => {"standalone" => {
-        "management-major-version" => 4,
-        "management-minor-version" => 1,
-        "management-micro-version" => 0
-    }},
+    "core" => {
+        "standalone" => {
+            "management-major-version" => 4,
+            "management-minor-version" => 1,
+            "management-micro-version" => 0
+        },
+        "product" => {
+            "product-name" => "JBoss EAP",
+            "product-version" => "7.0.0.GA"
+        }
+    },
     "subsystem" => {
         "batch-jberet" => {
             "management-major-version" => 1,

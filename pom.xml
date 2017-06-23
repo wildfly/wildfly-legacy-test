@@ -63,6 +63,7 @@
        <module>spi</module>
        <module>subsystem</module>
        <module>tools</module>
+       <module>versions</module>
     </modules>
 
     
