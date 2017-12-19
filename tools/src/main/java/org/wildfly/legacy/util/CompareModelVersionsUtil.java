@@ -437,7 +437,12 @@ public class CompareModelVersionsUtil {
     private void compareNillable(CompareContext context, String id, ModelNode current, ModelNode legacy) {
         boolean currentNillable = current.get(NILLABLE).asBoolean(false);
         boolean legacyNillable = legacy.get(NILLABLE).asBoolean(false);
-        if (currentNillable != legacyNillable) {
+        boolean hasAlternativeCurrent = current.hasDefined(ALTERNATIVES);
+        
+        if (currentNillable != legacyNillable && !hasAlternativeCurrent) {
+            if (currentNillable){//than legacy wasn't
+                context.print("* ");
+            }
             context.println("Different 'nillable' for " + id + ". Current: " + currentNillable + "; legacy: " + legacyNillable);
         }
     }
@@ -464,6 +469,9 @@ public class CompareModelVersionsUtil {
 
     private void compareDefault(CompareContext context, String id, ModelNode current, ModelNode legacy) {
         if (!current.get(DEFAULT).equals(legacy.get(DEFAULT))) {
+            if (legacy.hasDefined(DEFAULT)){
+                context.print("* ");
+            }
             context.println("Different 'default' for " + id + ". Current: " + current.get(DEFAULT) + "; legacy: " + legacy.get(DEFAULT));
         }
     }
@@ -561,7 +569,7 @@ public class CompareModelVersionsUtil {
         }
 
         if (extraInLegacyAfterRuntime.size() > 0 || extraInCurrentAfterRuntime.size() > 0) {
-            context.println("Missing " + type +
+            context.println("* Missing " + type +
                     " in current: " + extraInLegacyAfterRuntime + "; missing in legacy " + extraInCurrentAfterRuntime);
         }
 
@@ -680,6 +688,9 @@ public class CompareModelVersionsUtil {
             return sb.toString();
         }
 
+        void print(String msg) {
+            out.print(msg);
+        }
         void println(String msg) {
             if (!outputPath) {
                 outputPath = true;
