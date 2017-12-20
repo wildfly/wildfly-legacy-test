@@ -53,6 +53,7 @@ public class LegacyVersions {
 
     public static void main(String[] args) {
         System.out.println(getModelVersions("7.0.0"));
+        System.out.println(getModelVersions("7.1.0"));
         System.out.println(getModelVersions("6.4.0"));
     }
 

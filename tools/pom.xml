@@ -57,7 +57,7 @@
         <dependency>
             <groupId>org.wildfly.core</groupId>
             <artifactId>wildfly-controller</artifactId>
-            <version>3.0.0.Beta26</version>
+            <version>3.0.10.Final</version>
         </dependency>
     </dependencies>
 

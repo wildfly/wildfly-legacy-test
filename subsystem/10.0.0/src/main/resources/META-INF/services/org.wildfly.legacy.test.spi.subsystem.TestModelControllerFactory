@@ -16,4 +16,4 @@
 # limitations under the License.
 #
 
-org.wildfly.legacy.test.controller.subsystem_10_0_0.TestModelControllerFactory10_0_0
+org.wildfly.legacy.test.controller.subsystem_11_0_0.TestModelControllerFactory10_0_0

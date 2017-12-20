@@ -24,7 +24,7 @@ import org.jboss.as.controller.RunningMode;
 import org.jboss.as.controller.extension.ExtensionRegistry;
 import org.jboss.as.server.ServerEnvironment;
 import org.jboss.as.subsystem.test.ControllerInitializer.TestControllerAccessor;
-import org.wildfly.legacy.test.controller.subsystem_10_0_0.TestModelControllerService10_0_0;
+import org.wildfly.legacy.test.controller.subsystem_11_0_0.TestModelControllerService10_0_0;
 
 /**
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
