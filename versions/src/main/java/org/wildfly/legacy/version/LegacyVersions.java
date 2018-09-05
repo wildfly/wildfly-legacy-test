@@ -52,9 +52,16 @@ public class LegacyVersions {
     }
 
     public static void main(String[] args) {
-        System.out.println(getModelVersions("7.0.0"));
-        System.out.println(getModelVersions("7.1.0"));
-        System.out.println(getModelVersions("6.4.0"));
+        // TODO rename all the files with the wf14 suffix (also in tools/src/main/resources/legacy-models) when EAP 7.2.0 is out.
+        output("wf14");
+        output("7.0.0");
+        output("7.1.0");
+        output("6.4.0");
+    }
+
+    private static void output(String version) {
+        System.out.println("==== " + version + "====");
+        System.out.println(getModelVersions(version));
     }
 
     public static Map<String, ModelVersion> getModelVersions(String testControllerVersion) {
