@@ -17,6 +17,7 @@
  */
 package org.wildfly.legacy.test.controller.core_14_0_0;
 
+import org.jboss.as.controller.CapabilityRegistry;
 import org.jboss.as.controller.ControlledProcessState;
 import org.jboss.as.controller.ProcessType;
 import org.jboss.as.controller.RunningModeControl;
@@ -41,8 +42,10 @@ public class TestModelControllerFactory14_0_0 implements TestModelControllerFact
             StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter, TestModelType type,
             ModelInitializer modelInitializer, ExtensionRegistry extensionRegistry) {
         ControlledProcessState processState = new ControlledProcessState(true);
+        CapabilityRegistry capabilityRegistry = new CapabilityRegistry(type == TestModelType.STANDALONE);
         return new TestModelControllerService14_0_0(processType, runningModeControl, persister, validateOpsFilter, type,
-                modelInitializer, new TestModelControllerService14_0_0.DelegatingResourceDefinition(type), processState, extensionRegistry);
+                modelInitializer, new TestModelControllerService14_0_0.DelegatingResourceDefinition(type), processState,
+                extensionRegistry, capabilityRegistry);
     }
 
     @Override

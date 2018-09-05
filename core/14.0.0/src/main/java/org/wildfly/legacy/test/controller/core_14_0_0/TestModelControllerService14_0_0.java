@@ -106,11 +106,12 @@ class TestModelControllerService14_0_0 extends ModelTestModelControllerService {
     private final CapabilityRegistry capabilityRegistry;
 
     TestModelControllerService14_0_0(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
-                                     TestModelType type, ModelInitializer modelInitializer, DelegatingResourceDefinition rootResourceDefinition, ControlledProcessState processState, ExtensionRegistry extensionRegistry) {
-        super(processType, runningModeControl, null, persister, validateOpsFilter, rootResourceDefinition, processState, Controller90x.INSTANCE);
+                                     TestModelType type, ModelInitializer modelInitializer, DelegatingResourceDefinition rootResourceDefinition, ControlledProcessState processState,
+                                     ExtensionRegistry extensionRegistry, CapabilityRegistry capabilityRegistry) {
+        super(processType, runningModeControl, null, persister, validateOpsFilter, rootResourceDefinition, processState, capabilityRegistry);
         this.type = type;
         this.runningModeControl = runningModeControl;
-        this.capabilityRegistry = new CapabilityRegistry(type == TestModelType.STANDALONE);
+        this.capabilityRegistry = capabilityRegistry;
         this.pathManagerService = type == TestModelType.STANDALONE ? new ServerPathManagerService(capabilityRegistry) : new HostPathManagerService(capabilityRegistry);
         this.modelInitializer = modelInitializer;
         this.rootResourceDefinition = rootResourceDefinition;
@@ -138,7 +139,8 @@ class TestModelControllerService14_0_0 extends ModelTestModelControllerService {
 
     static TestModelControllerService14_0_0 create(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
                                                    TestModelType type, ModelInitializer modelInitializer, ExtensionRegistry extensionRegistry) {
-        return new TestModelControllerService14_0_0(processType, runningModeControl, persister, validateOpsFilter, type, modelInitializer, new DelegatingResourceDefinition(type), new ControlledProcessState(true), extensionRegistry);
+        CapabilityRegistry capabilityRegistry = new CapabilityRegistry(type == TestModelType.STANDALONE);
+        return new TestModelControllerService14_0_0(processType, runningModeControl, persister, validateOpsFilter, type, modelInitializer, new DelegatingResourceDefinition(type), new ControlledProcessState(true), extensionRegistry, capabilityRegistry);
     }
 
     InjectedValue<ContentRepository> getContentRepositoryInjector(){
@@ -598,6 +600,14 @@ class TestModelControllerService14_0_0 extends ModelTestModelControllerService {
                 return;
             }
             super.registerNotifications(resourceRegistration);
+        }
+
+        @Override
+        public void registerCapabilities(ManagementResourceRegistration resourceRegistration) {
+            if (type == TestModelType.DOMAIN) {
+                return;
+            }
+            super.registerCapabilities(resourceRegistration);
         }
     }
 
