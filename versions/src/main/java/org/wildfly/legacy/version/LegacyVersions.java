@@ -52,8 +52,7 @@ public class LegacyVersions {
     }
 
     public static void main(String[] args) {
-        // TODO rename all the files with the wf14 suffix (also in tools/src/main/resources/legacy-models) when EAP 7.2.0 is out.
-        output("wf14");
+        output("7.2.0");
         output("7.0.0");
         output("7.1.0");
         output("6.4.0");
