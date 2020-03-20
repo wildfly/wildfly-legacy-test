@@ -112,7 +112,7 @@
         <repository>
             <id>central</id>
             <name>Main Apache Maven Repository</name>
-            <url>http://repo.maven.apache.org/maven2/</url>
+            <url>https://repo.maven.apache.org/maven2/</url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
