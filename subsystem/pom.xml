@@ -39,6 +39,7 @@
         <module>10.0.0</module>
         <module>11.0.0</module>
         <module>14.0.0</module>
+        <module>18.0.0</module>
     </modules>
 
 </project>

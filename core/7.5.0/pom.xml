@@ -46,10 +46,6 @@
          <exclusions>
             <exclusion>
                <groupId>org.wildfly.legacy.test.direct</groupId>
-               <artifactId>wildfly-controller</artifactId>
-            </exclusion>
-            <exclusion>
-               <groupId>org.wildfly.legacy.test.direct</groupId>
                <artifactId>wildfly-deployment-repository</artifactId>
             </exclusion>
             <exclusion>

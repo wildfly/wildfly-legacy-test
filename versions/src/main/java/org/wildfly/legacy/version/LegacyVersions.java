@@ -52,6 +52,7 @@ public class LegacyVersions {
     }
 
     public static void main(String[] args) {
+        output("7.3.0");
         output("7.2.0");
         output("7.0.0");
         output("7.1.0");
@@ -72,12 +73,10 @@ public class LegacyVersions {
         } catch (IOException e) {
             throw new RuntimeException("Could not load legacy subsystem version");
         }
-
     }
 
 
     public static ModelVersion getSubsystemModelVersion(String testControllerVersion, String subsystemName) {
         return getModelVersions(testControllerVersion).get(subsystemName);
-
     }
 }

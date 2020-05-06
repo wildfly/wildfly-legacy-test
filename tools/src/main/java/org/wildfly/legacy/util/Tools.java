@@ -21,6 +21,7 @@ import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.CHI
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.EXTENSION;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.FAILURE_DESCRIPTION;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.HOST;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.INCLUDE_RUNTIME;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.INHERITED;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.MANAGEMENT_MAJOR_VERSION;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.MANAGEMENT_MICRO_VERSION;
@@ -105,7 +106,7 @@ public class Tools {
         if (node.hasDefined(PRODUCT_NAME)) {
             version.get(PRODUCT_NAME).set(node.get(PRODUCT_NAME));
         }
-        if (node.hasDefined(MANAGEMENT_MINOR_VERSION)) {
+        if (node.hasDefined(PRODUCT_VERSION)) {
             version.get(PRODUCT_VERSION).set(node.get(PRODUCT_VERSION));
 
         }
@@ -120,6 +121,7 @@ public class Tools {
 
             ModelNode op = new ModelNode();
             op.get(OP).set(READ_RESOURCE_OPERATION);
+            op.get(INCLUDE_RUNTIME).set(true);
             op.get(OP_ADDR).setEmptyList();
             ModelNode result = Tools.getAndCheckResult(client.execute(op));
 

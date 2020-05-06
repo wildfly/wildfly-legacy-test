@@ -39,8 +39,8 @@
       <version.org.jboss.jboss-vfs>3.2.5.Final</version.org.jboss.jboss-vfs>
 
       <!-- If the version of wildfly core has not been released yet containing some changes,
-	   you can override this on the command line using -D. There is no need to do a new 
-	   core release.
+       you can override this on the command line using -D. There is no need to do a new
+       core release.
       -->
 
         <!-- use wildfly core 1.x as 2.x brought it breaking change in ModelInitializer that we cannot use anymore with EAP6 based legacy controllers -->
