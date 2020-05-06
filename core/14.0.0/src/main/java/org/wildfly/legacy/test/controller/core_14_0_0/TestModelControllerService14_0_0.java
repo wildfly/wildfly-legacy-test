@@ -108,7 +108,7 @@ class TestModelControllerService14_0_0 extends ModelTestModelControllerService {
     TestModelControllerService14_0_0(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
                                      TestModelType type, ModelInitializer modelInitializer, DelegatingResourceDefinition rootResourceDefinition, ControlledProcessState processState,
                                      ExtensionRegistry extensionRegistry, CapabilityRegistry capabilityRegistry) {
-        super(processType, runningModeControl, null, persister, validateOpsFilter, rootResourceDefinition, processState, capabilityRegistry);
+        super(processType, runningModeControl, null, persister, validateOpsFilter, rootResourceDefinition, processState, ExpressionResolver.TEST_RESOLVER, capabilityRegistry, Controller14x.INSTANCE);
         this.type = type;
         this.runningModeControl = runningModeControl;
         this.capabilityRegistry = capabilityRegistry;

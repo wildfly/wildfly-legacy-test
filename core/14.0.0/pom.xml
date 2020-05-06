@@ -23,7 +23,7 @@
    <parent>
       <groupId>org.wildfly.legacy.test</groupId>
       <artifactId>wildfly-legacy-core-parent</artifactId>
-      <version>4.0.2.Final-SNAPSHOT</version>
+      <version>5.0.0.Final-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
 
@@ -34,17 +34,10 @@
    <packaging>jar</packaging>
 
    <properties>
-      <wildfly.current.version>6.0.1.Final</wildfly.current.version>
       <property.old.wildfly-core>6.0.1.Final</property.old.wildfly-core>
    </properties>
 
    <dependencies>
-      <dependency>
-         <groupId>org.wildfly.core</groupId>
-         <artifactId>wildfly-core-model-test-framework</artifactId>
-         <version>${property.old.wildfly-core}</version>
-         <scope>provided</scope>
-      </dependency>
       <dependency>
          <groupId>org.wildfly.legacy.test</groupId>
          <artifactId>wildfly-legacy-spi-dependencies</artifactId>
@@ -73,7 +66,7 @@
          <groupId>org.wildfly.legacy.test</groupId>
          <artifactId>wildfly-legacy-spi</artifactId>
          <scope>provided</scope>
-      </dependency>      
+      </dependency>
       <dependency>
          <groupId>org.wildfly.core</groupId>
          <artifactId>wildfly-controller</artifactId>
@@ -92,12 +85,5 @@
          <version>${property.old.wildfly-core}</version>
          <scope>provided</scope>
       </dependency>
-
    </dependencies>
-
-   <build>
-      <plugins>
-      </plugins>
-   </build>
-
 </project>

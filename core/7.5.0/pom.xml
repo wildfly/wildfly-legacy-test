@@ -23,7 +23,7 @@
    <parent>
       <groupId>org.wildfly.legacy.test</groupId>
       <artifactId>wildfly-legacy-core-parent</artifactId>
-      <version>4.0.2.Final-SNAPSHOT</version>
+      <version>5.0.0.Final-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
 
@@ -44,10 +44,6 @@
          <type>pom</type>
          <scope>provided</scope>
          <exclusions>
-            <exclusion>
-               <groupId>org.wildfly.legacy.test.direct</groupId>
-               <artifactId>wildfly-controller</artifactId>
-            </exclusion>
             <exclusion>
                <groupId>org.wildfly.legacy.test.direct</groupId>
                <artifactId>wildfly-deployment-repository</artifactId>

@@ -28,9 +28,11 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.jboss.as.controller.CapabilityRegistry;
 import org.jboss.as.controller.ControlledProcessState;
 import org.jboss.as.controller.Extension;
 import org.jboss.as.controller.ManagementModel;
+import org.jboss.as.controller.ProcessType;
 import org.jboss.as.controller.RunningModeControl;
 import org.jboss.as.controller.SimpleResourceDefinition;
 import org.jboss.as.controller.descriptions.NonResolvingResourceDescriptionResolver;
@@ -66,11 +68,12 @@ public class TestModelControllerService14_0_0 extends ModelTestModelControllerSe
     private final ContentRepository contentRepository = new MockContentRepository();
     private final boolean registerTransformers;
 
-    TestModelControllerService14_0_0(final Extension mainExtension, final ControllerInitializer controllerInitializer,
+    TestModelControllerService14_0_0(final ProcessType processType, final Extension mainExtension, final ControllerInitializer controllerInitializer,
                                      final AdditionalInitialization additionalInit, final RunningModeControl runningModeControl, final ExtensionRegistry extensionRegistry,
-                                     final StringConfigurationPersister persister, final ModelTestOperationValidatorFilter validateOpsFilter, final boolean registerTransformers) {
-        super(AdditionalInitializationUtil.getProcessType(additionalInit), runningModeControl, extensionRegistry.getTransformerRegistry(), persister, validateOpsFilter,
-                new SimpleResourceDefinition(null, new NonResolvingResourceDescriptionResolver()), new ControlledProcessState(true), Controller90x.INSTANCE);
+                                     final StringConfigurationPersister persister, final ModelTestOperationValidatorFilter validateOpsFilter, final boolean registerTransformers,
+                                     final CapabilityRegistry capabilityRegistry) {
+        super(processType, runningModeControl, extensionRegistry.getTransformerRegistry(), persister, validateOpsFilter,
+                new SimpleResourceDefinition(null, new NonResolvingResourceDescriptionResolver()), new ControlledProcessState(true), capabilityRegistry, Controller14x.INSTANCE);
         this.mainExtension = mainExtension;
         this.additionalInit = additionalInit;
         this.controllerInitializer = controllerInitializer;
