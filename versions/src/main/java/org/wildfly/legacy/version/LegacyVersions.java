@@ -52,6 +52,7 @@ public class LegacyVersions {
     }
 
     public static void main(String[] args) {
+        output("wf23");
         output("7.3.0");
         output("7.2.0");
         output("7.0.0");
