@@ -20,7 +20,6 @@ package org.wildfly.legacy.util;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SUBSYSTEM;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.XML_NAMESPACES;
 
-import java.io.File;
 import java.nio.file.Path;
 
 import org.jboss.dmr.ModelNode;
