@@ -27,14 +27,14 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>wildfly-legacy-subsystem-18.0.0</artifactId>
+    <artifactId>wildfly-legacy-subsystem-25.0.0</artifactId>
 
-    <name>WildFly: Legacy Test 18.0.0 Subsystem Controller</name>
-    <description>The legacy Test 18.0.0 subsystem controller</description>
+    <name>WildFly: Legacy Test 25.0.0 Subsystem Controller</name>
+    <description>The legacy Test 25.0.0 subsystem controller</description>
     <packaging>jar</packaging>
 
     <properties>
-        <property.old.wildfly-core>10.0.3.Final</property.old.wildfly-core>
+        <property.old.wildfly-core>17.0.0.Final</property.old.wildfly-core>
     </properties>
 
     <dependencies>

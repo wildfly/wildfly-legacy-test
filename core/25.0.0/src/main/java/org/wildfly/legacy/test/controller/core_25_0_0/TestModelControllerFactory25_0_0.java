@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wildfly.legacy.test.controller.core_23_0_0;
+package org.wildfly.legacy.test.controller.core_25_0_0;
 
 import org.jboss.as.controller.CapabilityRegistry;
 import org.jboss.as.controller.ControlledProcessState;
@@ -35,7 +35,7 @@ import org.wildfly.legacy.test.spi.core.TestModelControllerFactory;
  *
  * @author Tomaz Cerar
  */
-public class TestModelControllerFactory23_0_0 implements TestModelControllerFactory {
+public class TestModelControllerFactory25_0_0 implements TestModelControllerFactory {
 
     @Override
     public ModelTestModelControllerService create(ProcessType processType, RunningModeControl runningModeControl,
@@ -43,13 +43,13 @@ public class TestModelControllerFactory23_0_0 implements TestModelControllerFact
             ModelInitializer modelInitializer, ExtensionRegistry extensionRegistry) {
         ControlledProcessState processState = new ControlledProcessState(true);
         CapabilityRegistry capabilityRegistry = new CapabilityRegistry(type == TestModelType.STANDALONE);
-        return new TestModelControllerService23_0_0(processType, runningModeControl, persister, validateOpsFilter, type,
-                modelInitializer, new TestModelControllerService23_0_0.DelegatingResourceDefinition(type), processState,
+        return new TestModelControllerService25_0_0(processType, runningModeControl, persister, validateOpsFilter, type,
+                modelInitializer, new TestModelControllerService25_0_0.DelegatingResourceDefinition(type), processState,
                 extensionRegistry, capabilityRegistry);
     }
 
     @Override
     public InjectedValue<ContentRepository> getContentRepositoryInjector(ModelTestModelControllerService service) {
-        return ((TestModelControllerService23_0_0)service).getContentRepositoryInjector();
+        return ((TestModelControllerService25_0_0)service).getContentRepositoryInjector();
     }
 }

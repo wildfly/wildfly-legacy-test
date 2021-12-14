@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wildfly.legacy.test.controller.core_23_0_0;
+package org.wildfly.legacy.test.controller.core_25_0_0;
 
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.OP;
 
@@ -80,7 +80,6 @@ import org.jboss.as.server.ServerEnvironmentResourceDescription;
 import org.jboss.as.server.ServerPathManagerService;
 import org.jboss.as.server.controller.resources.ServerRootResourceDefinition;
 import org.jboss.as.server.controller.resources.VersionModelInitializer;
-import org.jboss.as.server.services.security.AbstractVaultReader;
 import org.jboss.as.version.ProductConfig;
 import org.jboss.dmr.ModelNode;
 import org.jboss.msc.service.StartContext;
@@ -92,7 +91,7 @@ import org.jboss.msc.value.InjectedValue;
  *
  * @author Tomaz Cerar
  */
-class TestModelControllerService23_0_0 extends ModelTestModelControllerService {
+class TestModelControllerService25_0_0 extends ModelTestModelControllerService {
 
     private final InjectedValue<ContentRepository> injectedContentRepository = new InjectedValue<>();
     private final TestModelType type;
@@ -105,7 +104,7 @@ class TestModelControllerService23_0_0 extends ModelTestModelControllerService {
     private volatile Initializer initializer;
     private final CapabilityRegistry capabilityRegistry;
 
-    TestModelControllerService23_0_0(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
+    TestModelControllerService25_0_0(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
                                      TestModelType type, ModelInitializer modelInitializer, DelegatingResourceDefinition rootResourceDefinition, ControlledProcessState processState,
                                      ExtensionRegistry extensionRegistry, CapabilityRegistry capabilityRegistry) {
         super(processType, runningModeControl, null, persister, validateOpsFilter, rootResourceDefinition, processState, ExpressionResolver.TEST_RESOLVER, capabilityRegistry, Controller23x.INSTANCE);
@@ -137,10 +136,10 @@ class TestModelControllerService23_0_0 extends ModelTestModelControllerService {
         }
     }
 
-    static TestModelControllerService23_0_0 create(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
+    static TestModelControllerService25_0_0 create(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
                                                    TestModelType type, ModelInitializer modelInitializer, ExtensionRegistry extensionRegistry) {
         CapabilityRegistry capabilityRegistry = new CapabilityRegistry(type == TestModelType.STANDALONE);
-        return new TestModelControllerService23_0_0(processType, runningModeControl, persister, validateOpsFilter, type, modelInitializer, new DelegatingResourceDefinition(type), new ControlledProcessState(true), extensionRegistry, capabilityRegistry);
+        return new TestModelControllerService25_0_0(processType, runningModeControl, persister, validateOpsFilter, type, modelInitializer, new DelegatingResourceDefinition(type), new ControlledProcessState(true), extensionRegistry, capabilityRegistry);
     }
 
     InjectedValue<ContentRepository> getContentRepositoryInjector(){
@@ -399,7 +398,6 @@ class TestModelControllerService23_0_0 extends ModelTestModelControllerService {
         final ExtensibleConfigurationPersister persister = new NullConfigurationPersister();
         final ServerEnvironment environment = createStandaloneServerEnvironment();
         final boolean parallelBoot = false;
-        final AbstractVaultReader vaultReader = null;
 
         public void setRootResourceDefinitionDelegate() {
             rootResourceDefinition.setDelegate(new ServerRootResourceDefinition(
@@ -408,7 +406,6 @@ class TestModelControllerService23_0_0 extends ModelTestModelControllerService {
                     environment,
                     processState,
                     runningModeControl,
-                    vaultReader,
                     extensionRegistry,
                     parallelBoot,
                     pathManagerService,
@@ -456,7 +453,6 @@ class TestModelControllerService23_0_0 extends ModelTestModelControllerService {
                             injectedContentRepository.getValue(),
                             domainController,
                             extensionRegistry,
-                            null /*vaultReader*/,
                             ignoredRegistry,
                             processState,
                             pathManagerService,
@@ -497,7 +493,6 @@ class TestModelControllerService23_0_0 extends ModelTestModelControllerService {
                     domainController,
                     extensionRegistry,
                     extensionRegistry,
-                    null /*vaultReader*/,
                     ignoredRegistry,
                     processState,
                     pathManagerService,
