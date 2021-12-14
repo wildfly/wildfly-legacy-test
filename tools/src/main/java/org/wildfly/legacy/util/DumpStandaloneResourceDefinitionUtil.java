@@ -32,6 +32,10 @@ import org.jboss.dmr.ModelNode;
  */
 public class DumpStandaloneResourceDefinitionUtil {
 
+    // When running this for an EAP XP release, make sure to
+    // start the server with standalone-microprofile.xml and to enable
+    // the reactive subsystems using
+    // https://github.com/wildfly/quickstart/blob/main/microprofile-reactive-messaging-kafka/enable-reactive-messaging.cli
     public static void main(String[] args) throws Exception {
         ModelNode resourceDefinition = Tools.getCurrentRunningResourceDefinition(PathAddress.EMPTY_ADDRESS);
         final Path projectDir = Tools.getProjectDirectory();
