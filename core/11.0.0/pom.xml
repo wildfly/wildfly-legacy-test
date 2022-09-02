@@ -35,7 +35,7 @@
 
    <properties>
       <wildfly.current.version>3.0.10.Final</wildfly.current.version>
-      <property.old.wildfly-core>3.0.10.Final</property.old.wildfly-core>
+      <property.old.wildfly-core>16.0.1.Final</property.old.wildfly-core>
    </properties>
 
    <dependencies>
