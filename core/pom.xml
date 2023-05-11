@@ -33,11 +33,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>7.5.0</module>
-        <module>10.0.0</module>
-        <module>11.0.0</module>
-        <module>14.0.0</module>
-        <module>18.0.0</module>
         <module>23.0.0</module>
         <module>25.0.0</module>
     </modules>

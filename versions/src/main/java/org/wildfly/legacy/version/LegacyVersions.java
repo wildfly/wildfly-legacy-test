@@ -53,11 +53,6 @@ public class LegacyVersions {
 
     public static void main(String[] args) {
         output("7.4.0");
-        output("7.3.0");
-        output("7.2.0");
-        output("7.0.0");
-        output("7.1.0");
-        output("6.4.0");
     }
 
     private static void output(String version) {
