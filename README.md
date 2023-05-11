@@ -6,7 +6,7 @@ Legacy core-model-test and subsystem-test test controllers for WF core 2.x
 When doing a release bump the version using perl to update the version 
 in all the poms and Version.java:
 
-    perl -pi -e 's/1.2.0-SNAPSHOT/1.2.0.GA/g' `find . -name \*.xml -or -name \*.java`
+    perl -pi -e 's/(\D)7.0.0.Final/${1}7.0.1-Final-SNAPSHOT/g' $(find . -name \*.xml -or -name \*.java)
 
 
 To build legacy test then bump the version of wildfly.current.version to the version containing the
