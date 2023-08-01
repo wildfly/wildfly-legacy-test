@@ -44,7 +44,6 @@ import org.jboss.as.controller.audit.AuditLogger;
 import org.jboss.as.controller.capability.registry.ImmutableCapabilityRegistry;
 import org.jboss.as.controller.descriptions.ModelDescriptionConstants;
 import org.jboss.as.controller.extension.ExtensionRegistry;
-import org.jboss.as.controller.persistence.ConfigurationFile;
 import org.jboss.as.controller.persistence.ExtensibleConfigurationPersister;
 import org.jboss.as.controller.persistence.NullConfigurationPersister;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
@@ -83,11 +82,11 @@ import org.jboss.as.server.controller.resources.ServerRootResourceDefinition;
 import org.jboss.as.server.controller.resources.VersionModelInitializer;
 import org.jboss.as.version.ProductConfig;
 import org.jboss.dmr.ModelNode;
+import org.jboss.modules.Module;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
 import org.jboss.msc.value.InjectedValue;
-import org.jboss.modules.Module;
 import org.wildfly.security.manager.WildFlySecurityManager;
 
 /**
