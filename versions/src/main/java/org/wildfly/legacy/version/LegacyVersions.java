@@ -52,6 +52,8 @@ public class LegacyVersions {
     }
 
     public static void main(String[] args) {
+        // Once we replace WF29 placeholder with EAP 8.0.0, we replace this with 8.0.0
+        output("wf29");
         output("7.4.0");
     }
 
