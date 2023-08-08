@@ -27,7 +27,7 @@
       <relativePath>../pom.xml</relativePath>
    </parent>
 
-   <artifactId>wildfly-legacy-core-29_0_0</artifactId>
+   <artifactId>wildfly-legacy-core-29.0.0</artifactId>
 
    <name>WildFly: Legacy Test 21.1.x Core Controller</name>
    <description>The legacy Test SPI 21.1.x core controller used by WildFly 29_0_0.Final</description>
