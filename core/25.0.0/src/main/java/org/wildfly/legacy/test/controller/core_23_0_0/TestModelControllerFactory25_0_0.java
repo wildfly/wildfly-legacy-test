@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wildfly.legacy.test.controller.core_25_0_0;
+package org.wildfly.legacy.test.controller.core_23_0_0;
 
 import org.jboss.as.controller.CapabilityRegistry;
 import org.jboss.as.controller.ControlledProcessState;
