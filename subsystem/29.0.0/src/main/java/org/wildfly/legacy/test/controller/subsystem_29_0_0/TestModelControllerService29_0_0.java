@@ -74,7 +74,7 @@ public class TestModelControllerService29_0_0 extends ModelTestModelControllerSe
                                      final CapabilityRegistry capabilityRegistry) {
         super(processType, runningModeControl, extensionRegistry.getTransformerRegistry(), persister, validateOpsFilter,
                 new SimpleResourceDefinition(null, new NonResolvingResourceDescriptionResolver()),
-                new ControlledProcessState(true), capabilityRegistry, Controller23x.INSTANCE);
+                new ControlledProcessState(true), capabilityRegistry, Controller29x.INSTANCE);
         this.mainExtension = mainExtension;
         this.additionalInit = additionalInit;
         this.controllerInitializer = controllerInitializer;
