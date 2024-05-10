@@ -112,7 +112,7 @@ public class TestModelControllerService29_0_0 extends ModelTestModelControllerSe
 
     @Override
     protected void preBoot(List<ModelNode> bootOperations, boolean rollbackOnRuntimeFailure) {
-        mainExtension.initialize(extensionRegistry.getExtensionContext("Test", getRootRegistration(), ExtensionRegistryType.SERVER));
+        mainExtension.initialize(extensionRegistry.getExtensionContext("Test", getRootRegistration(), ExtensionRegistryType.MASTER));
     }
 
 
