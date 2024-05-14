@@ -44,7 +44,7 @@
       -->
 
       <!-- This is really the version of WildFly Core -->
-      <wildfly.current.version>22.0.0.Beta1-SNAPSHOT</wildfly.current.version>
+      <wildfly.current.version>22.0.0.Beta1</wildfly.current.version>
 
     </properties>
 
