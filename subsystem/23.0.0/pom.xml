@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.wildfly.legacy.test</groupId>
         <artifactId>wildfly-legacy-subsystem-parent</artifactId>
-        <version>8.0.3.Final-SNAPSHOT</version>
+        <version>9.0.0.Final-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -44,6 +44,10 @@
             <type>pom</type>
             <scope>provided</scope>
             <exclusions>
+                <exclusion>
+                    <groupId>org.wildfly.legacy.test.direct</groupId>
+                    <artifactId>wildfly-version</artifactId>
+                </exclusion>
                 <exclusion>
                     <groupId>org.wildfly.legacy.test.direct</groupId>
                     <artifactId>wildfly-controller</artifactId>
@@ -68,7 +72,13 @@
         </dependency>
         <dependency>
             <groupId>org.wildfly.core</groupId>
-            <artifactId>wildfly-controller</artifactId>
+            <artifactId>wildfly-version</artifactId>
+            <version>${property.old.wildfly-core}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.core</groupId>
+            <artifactId>wildfly-host-controller</artifactId>
             <version>${property.old.wildfly-core}</version>
             <scope>provided</scope>
         </dependency>

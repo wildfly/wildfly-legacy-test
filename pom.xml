@@ -29,7 +29,7 @@
     <artifactId>wildfly-legacy-test-parent</artifactId>
 
     <groupId>org.wildfly.legacy.test</groupId>
-    <version>8.0.3.Final-SNAPSHOT</version>
+    <version>9.0.0.Final-SNAPSHOT</version>
     <name>WildFly: Legacy Test</name>
     <packaging>pom</packaging>
 
@@ -43,9 +43,10 @@
        core release.
       -->
 
-      <!-- This is really the version of WildFly Core -->
-      <wildfly.current.version>22.0.0.Beta1</wildfly.current.version>
+      <!-- This is really the version of the current WildFly Core -->
+      <wildfly.current.version>27.0.0.Beta6-SNAPSHOT</wildfly.current.version>
 
+      <maven.compiler.release>11</maven.compiler.release>
     </properties>
 
     <scm>

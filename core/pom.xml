@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.wildfly.legacy.test</groupId>
         <artifactId>wildfly-legacy-test-parent</artifactId>
-        <version>8.0.3.Final-SNAPSHOT</version>
+        <version>9.0.0.Final-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -36,6 +36,7 @@
         <module>23.0.0</module>
         <module>25.0.0</module>
         <module>29.0.0</module>
+        <module>31.0.0</module>
     </modules>
 
     <build>

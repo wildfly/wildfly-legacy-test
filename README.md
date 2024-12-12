@@ -1,7 +1,30 @@
 wildfly-legacy-test
 ===================
 
-Legacy core-model-test and subsystem-test test controllers for WF core 2.x
+Legacy core-model-test and subsystem-test test controllers for WF Core.
+This project supplies the classes to boostrap legacy controllers for the WildFly
+core-model-test and subsystem-test modules.
+
+The WildFly core-model-test and subsystem-test modules are in charge of preparing all the necessary classes to boostrap the 
+controllers for the legacy servers. The wildfly-legacy-subsystem-XX.YY.ZZ and wildfly-legacy-core-XX.YY.ZZ artifacts
+provided by this project will be added on the classpath of the transformer tests launched by the WildFly testsuite
+together with the dependencies for the legacy controllers. It means that wildfly-legacy-subsystem-XX.YY.ZZ and wildfly-legacy-core-XX.YY.ZZ 
+need to be compiled using a mix of dependencies, for example the TestModelControllerFactory under the SPI module needs to be compiled with
+the current WildFly dependencies, however their implementations and the TestModelControllerService created from those factories
+needs to be compiled against the classes provided by the legacy server modules.
+
+The target legacy server version is controlled by the `property.old.wildfly-core` maven property configured on each
+wildfly-legacy-subsystem-XX.YY.ZZ and wildfly-legacy-core-XX.YY.ZZ modules. The current WildFly version is controlled 
+by the `wildfly.current.version` maven property.
+
+
+Guidelines to integrate a new controller
+===================
+The general approach to build when we are integrating a new controller is the following:
+1. Update the `property.old.wildfly-core` property to the version of the target WildFly server we want to launch.
+2. Update the `wildfly.current.version` property to the version of the WildFly server.
+3. Keep the wildfly-legacy-subsystem-XX.YY.ZZ and wildfly-legacy-core-XX.YY.ZZ compiled with the classes provided by the
+legacy server dependencies.
 
 When doing a release bump the version using perl to update the version 
 in all the poms and Version.java:
