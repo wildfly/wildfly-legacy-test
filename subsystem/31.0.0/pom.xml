@@ -31,22 +31,10 @@
 
     <name>WildFly: Legacy Test 31.0.0 Subsystem Controller</name>
     <description>The legacy Test 31.0.0 subsystem controller</description>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>10</source>
-                    <target>10</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
     <packaging>jar</packaging>
 
     <properties>
-        <property.old.wildfly-core>23.0.1.Final</property.old.wildfly-core>
+        <property.old.wildfly-core>27.0.0.Beta6</property.old.wildfly-core>
     </properties>
 
     <dependencies>
