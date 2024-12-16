@@ -44,7 +44,7 @@
       -->
 
       <!-- This is really the version of the current WildFly Core -->
-      <wildfly.current.version>27.0.0.Beta6-SNAPSHOT</wildfly.current.version>
+      <wildfly.current.version>27.0.0.Beta6</wildfly.current.version>
 
       <maven.compiler.release>11</maven.compiler.release>
     </properties>
