@@ -23,14 +23,14 @@
    <parent>
       <groupId>org.wildfly.legacy.test</groupId>
       <artifactId>wildfly-legacy-core-parent</artifactId>
-      <version>9.0.0.Final</version>
+      <version>9.0.1.Final-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
 
    <artifactId>wildfly-legacy-core-29.0.0</artifactId>
 
    <name>WildFly: Legacy Test 21.1.x Core Controller</name>
-   <description>The legacy Test SPI 21.1.x core controller used by WildFly 29_0_0.Final</description>
+   <description>The legacy Test SPI 21.1.x core controller used by WildFly 29.0.1.Final-SNAPSHOT</description>
    <packaging>jar</packaging>
 
    <properties>
