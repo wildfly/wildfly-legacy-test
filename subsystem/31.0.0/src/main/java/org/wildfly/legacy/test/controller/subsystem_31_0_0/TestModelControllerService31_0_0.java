@@ -86,7 +86,7 @@ public class TestModelControllerService31_0_0 extends ModelTestModelControllerSe
 
         super(processType, additionalInit.getStability(), runningModeControl, extensionRegistry.getTransformerRegistry(), persister, validateOpsFilter,
                 ResourceDefinition.builder(ResourceRegistration.of(null, additionalInit.getStability()), NonResolvingResourceDescriptionResolver.INSTANCE).build(),
-                expressionResolver, new ControlledProcessState(true),capabilityRegistry, Controller31x.INSTANCE);
+                expressionResolver, new ControlledProcessState(true), capabilityRegistry, Controller31x.INSTANCE);
 
         this.mainExtension = mainExtension;
         this.additionalInit = additionalInit;

@@ -40,7 +40,7 @@ import org.jboss.msc.value.InjectedValue;
 public interface TestModelControllerFactory {
 
     ModelTestModelControllerService create(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
-            TestModelType type, ModelInitializer modelInitializer, ExtensionRegistry extensionRegistry);
+                                           TestModelType type, ModelInitializer modelInitializer, ExtensionRegistry extensionRegistry);
 
     InjectedValue<ContentRepository> getContentRepositoryInjector(ModelTestModelControllerService service);
 

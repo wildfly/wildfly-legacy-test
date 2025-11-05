@@ -135,11 +135,11 @@ class TestModelControllerService31_0_0 extends ModelTestModelControllerService {
             initializer = new ServerInitializer();
         } else if (type == TestModelType.HOST) {
             //Remove the write-local-domain-controller operation since we already simulate that here
-            for (Iterator<ModelNode> it = persister.getBootOperations().iterator() ; it.hasNext() ; ) {
+            for (Iterator<ModelNode> it = persister.getBootOperations().iterator(); it.hasNext(); ) {
                 ModelNode op = it.next();
                 if (op.get(OP).asString().equals("write-local-domain-controller")) {
                     System.out.println("WARNING: Test framework is removing the 'write-local-domain-controller' operation. If you are comparing xml results use a " +
-                             "ModelWriteSanitizer to add the \"domain-controller\" => {\"local\" => {}} part (See ShippedConfigurationsModelTestCase.testHostXml() for an example)");
+                            "ModelWriteSanitizer to add the \"domain-controller\" => {\"local\" => {}} part (See ShippedConfigurationsModelTestCase.testHostXml() for an example)");
                     it.remove();
                     break;
                 }
@@ -156,7 +156,7 @@ class TestModelControllerService31_0_0 extends ModelTestModelControllerService {
         return new TestModelControllerService31_0_0(processType, runningModeControl, persister, validateOpsFilter, type, modelInitializer, new DelegatingResourceDefinition(type), new ControlledProcessState(true), extensionRegistry, capabilityRegistry);
     }
 
-    InjectedValue<ContentRepository> getContentRepositoryInjector(){
+    InjectedValue<ContentRepository> getContentRepositoryInjector() {
         return injectedContentRepository;
     }
 
@@ -346,7 +346,7 @@ class TestModelControllerService31_0_0 extends ModelTestModelControllerService {
             }
 
             @Override
-            public void unregisterRemoteHost(final String id, Long remoteConnectionId, boolean cleanUnregistration){
+            public void unregisterRemoteHost(final String id, Long remoteConnectionId, boolean cleanUnregistration) {
 
             }
 
@@ -414,16 +414,16 @@ class TestModelControllerService31_0_0 extends ModelTestModelControllerService {
 
             @Override
             public void initializeMasterDomainRegistry(ManagementResourceRegistration root,
-                    ExtensibleConfigurationPersister configurationPersister, ContentRepository contentRepository,
-                    HostFileRepository fileRepository, ExtensionRegistry extensionRegistry, PathManagerService pathManager) {
+                                                       ExtensibleConfigurationPersister configurationPersister, ContentRepository contentRepository,
+                                                       HostFileRepository fileRepository, ExtensionRegistry extensionRegistry, PathManagerService pathManager) {
             }
 
             @Override
             public void initializeSlaveDomainRegistry(ManagementResourceRegistration root,
-                    ExtensibleConfigurationPersister configurationPersister, ContentRepository contentRepository,
-                    HostFileRepository fileRepository, LocalHostControllerInfo hostControllerInfo,
-                    ExtensionRegistry extensionRegistry, IgnoredDomainResourceRegistry ignoredDomainResourceRegistry,
-                    PathManagerService pathManager) {
+                                                      ExtensibleConfigurationPersister configurationPersister, ContentRepository contentRepository,
+                                                      HostFileRepository fileRepository, LocalHostControllerInfo hostControllerInfo,
+                                                      ExtensionRegistry extensionRegistry, IgnoredDomainResourceRegistry ignoredDomainResourceRegistry,
+                                                      PathManagerService pathManager) {
             }
 
             @Override
@@ -443,6 +443,7 @@ class TestModelControllerService31_0_0 extends ModelTestModelControllerService {
 
     private interface Initializer {
         void setRootResourceDefinitionDelegate();
+
         void initCoreModel(Resource rootResource, ManagementResourceRegistration rootRegistration, Resource modelControllerResource);
     }
 
@@ -497,7 +498,7 @@ class TestModelControllerService31_0_0 extends ModelTestModelControllerService {
                             hostName,
                             persister,
                             env,
-                            (HostRunningModeControl)runningModeControl,
+                            (HostRunningModeControl) runningModeControl,
                             hostFileRepository,
                             info,
                             null /*serverInventory*/,
@@ -536,7 +537,7 @@ class TestModelControllerService31_0_0 extends ModelTestModelControllerService {
                     rootRegistration,
                     persister,
                     env,
-                    (HostRunningModeControl)runningModeControl,
+                    (HostRunningModeControl) runningModeControl,
                     hostFileRepository,
                     info,
                     null /*serverInventory*/,
@@ -594,7 +595,8 @@ class TestModelControllerService31_0_0 extends ModelTestModelControllerService {
             HostModelUtil.createRootRegistry(
                     rootRegistration,
                     env, ignoredRegistry,
-                    (hostName, root) -> {},
+                    (hostName, root) -> {
+                    },
                     processType,
                     authorizer,
                     modelControllerResource,
