@@ -71,7 +71,7 @@
         -->
 
         <!-- This is really the version of the current WildFly Core -->
-        <wildfly.current.version>29.0.0.Beta2</wildfly.current.version>
+        <wildfly.current.version>30.0.0.Final</wildfly.current.version>
 
         <maven.compiler.release>11</maven.compiler.release>
 
