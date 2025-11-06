@@ -17,13 +17,14 @@
   ~ limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>39</version>
+        <version>50</version>
     </parent>
 
     <artifactId>wildfly-legacy-test-parent</artifactId>
@@ -31,74 +32,97 @@
     <groupId>org.wildfly.legacy.test</groupId>
     <version>10.0.1.Final</version>
     <name>WildFly: Legacy Test</name>
+    <description>This project supplies the classes to boostrap legacy controllers for the WildFly core-model-test and subsystem-test modules.</description>
+    <url>https://github.com/wildfly/wildfly-legacy-test.git</url>
     <packaging>pom</packaging>
 
-    <properties>
-      <version.org.jboss.jboss-dmr>1.3.0.Final</version.org.jboss.jboss-dmr>
-      <version.org.jboss.jboss-msc>1.2.2.Final</version.org.jboss.jboss-msc>
-      <version.org.jboss.jboss-vfs>3.2.5.Final</version.org.jboss.jboss-vfs>
-
-      <!-- If the version of wildfly core has not been released yet containing some changes,
-       you can override this on the command line using -D. There is no need to do a new
-       core release.
-      -->
-
-      <!-- This is really the version of the current WildFly Core -->
-      <wildfly.current.version>29.0.0.Beta2</wildfly.current.version>
-
-      <maven.compiler.release>11</maven.compiler.release>
-    </properties>
+    <developers>
+        <developer>
+            <id>kabir</id>
+            <name>Kabir Khan</name>
+            <url>https://github.com/kabir</url>
+            <organization>IBM</organization>
+            <organizationUrl>https://www.ibm.com</organizationUrl>
+        </developer>
+        <developer>
+            <id>yersan</id>
+            <name>Yeray Borges</name>
+            <url>https://github.com/yersan</url>
+            <organization>IBM</organization>
+            <organizationUrl>https://www.ibm.com</organizationUrl>
+        </developer>
+    </developers>
 
     <scm>
         <connection>scm:git:git@github.com:wildfly/wildfly-legacy-test.git</connection>
         <developerConnection>scm:git:git@github.com:wildfly/wildfly-legacy-test.git</developerConnection>
         <url>https://github.com/wildfly/wildfly-legacy-test/</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
-    
+    <properties>
+        <version.org.jboss.jboss-dmr>1.3.0.Final</version.org.jboss.jboss-dmr>
+        <version.org.jboss.jboss-msc>1.2.2.Final</version.org.jboss.jboss-msc>
+        <version.org.jboss.jboss-vfs>3.2.5.Final</version.org.jboss.jboss-vfs>
+
+        <!-- If the version of wildfly core has not been released yet containing some changes,
+         you can override this on the command line using -D. There is no need to do a new
+         core release.
+        -->
+
+        <!-- This is really the version of the current WildFly Core -->
+        <wildfly.current.version>30.0.0.Final</wildfly.current.version>
+
+        <maven.compiler.release>11</maven.compiler.release>
+
+        <!-- Nexus deployment settings -->
+        <nexus.repository.staging>wildfly-staging</nexus.repository.staging>
+        <nexus.staging.tag>wildfly-legacy-test-${project.version}</nexus.staging.tag>
+    </properties>
+
+
     <modules>
-       <module>core</module>
-       <module>spi</module>
-       <module>subsystem</module>
-       <module>tools</module>
-       <module>versions</module>
+        <module>core</module>
+        <module>spi</module>
+        <module>subsystem</module>
+        <module>tools</module>
+        <module>versions</module>
     </modules>
 
-    
+
     <dependencyManagement>
-      <!-- Dependencies in this project -->
-      <dependencies>
-         <dependency>
-            <groupId>org.wildfly.legacy.test</groupId>
-            <artifactId>wildfly-legacy-spi</artifactId>
-            <version>${project.version}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.wildfly.legacy.test</groupId>
-            <artifactId>wildfly-legacy-spi-dependencies</artifactId>
-            <type>pom</type>
-            <version>${project.version}</version>
-         </dependency>
-   
-         <!-- External dependencies -->
-         <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jboss-dmr</artifactId>
-            <version>${version.org.jboss.jboss-dmr}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jboss-vfs</artifactId>
-            <version>${version.org.jboss.jboss-vfs}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.jboss.msc</groupId>
-            <artifactId>jboss-msc</artifactId>
-            <version>${version.org.jboss.jboss-msc}</version>
-         </dependency>
-      </dependencies>
-      
+        <!-- Dependencies in this project -->
+        <dependencies>
+            <dependency>
+                <groupId>org.wildfly.legacy.test</groupId>
+                <artifactId>wildfly-legacy-spi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.legacy.test</groupId>
+                <artifactId>wildfly-legacy-spi-dependencies</artifactId>
+                <type>pom</type>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- External dependencies -->
+            <dependency>
+                <groupId>org.jboss</groupId>
+                <artifactId>jboss-dmr</artifactId>
+                <version>${version.org.jboss.jboss-dmr}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss</groupId>
+                <artifactId>jboss-vfs</artifactId>
+                <version>${version.org.jboss.jboss-vfs}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.msc</groupId>
+                <artifactId>jboss-msc</artifactId>
+                <version>${version.org.jboss.jboss-msc}</version>
+            </dependency>
+        </dependencies>
+
     </dependencyManagement>
 
     <!--

@@ -52,6 +52,7 @@ public class LegacyVersions {
     }
 
     public static void main(String[] args) {
+        output("8.1.0");
         output("8.0.0");
         output("7.4.0");
         output("wf31");

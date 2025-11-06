@@ -39,8 +39,8 @@ public class TestModelControllerFactory23_0_0 implements TestModelControllerFact
 
     @Override
     public ModelTestModelControllerService create(ProcessType processType, RunningModeControl runningModeControl,
-            StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter, TestModelType type,
-            ModelInitializer modelInitializer, ExtensionRegistry extensionRegistry) {
+                                                  StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter, TestModelType type,
+                                                  ModelInitializer modelInitializer, ExtensionRegistry extensionRegistry) {
         ControlledProcessState processState = new ControlledProcessState(true);
         CapabilityRegistry capabilityRegistry = new CapabilityRegistry(type == TestModelType.STANDALONE);
         return new TestModelControllerService23_0_0(processType, runningModeControl, persister, validateOpsFilter, type,
@@ -50,6 +50,6 @@ public class TestModelControllerFactory23_0_0 implements TestModelControllerFact
 
     @Override
     public InjectedValue<ContentRepository> getContentRepositoryInjector(ModelTestModelControllerService service) {
-        return ((TestModelControllerService23_0_0)service).getContentRepositoryInjector();
+        return ((TestModelControllerService23_0_0) service).getContentRepositoryInjector();
     }
 }

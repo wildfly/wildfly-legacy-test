@@ -13,6 +13,7 @@ import java.util.function.Function;
 
 /**
  * Enumeration of stability levels.
+ *
  * @author Paul Ferraro
  */
 public enum Stability {
@@ -39,6 +40,7 @@ public enum Stability {
 
     /**
      * Indicates whether this stability enables the specified stability level.
+     *
      * @param stability a stability level
      * @return true, if this stability level enables the specified stability level, false otherwise.
      */
@@ -49,7 +51,8 @@ public enum Stability {
 
     /**
      * Returns a complete map of a feature per stability level.
-     * @param <F> the feature type
+     *
+     * @param <F>      the feature type
      * @param features a function returning the feature of a given stability level
      * @return a full mapping of feature per stability level
      */
