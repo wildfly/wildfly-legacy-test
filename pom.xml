@@ -28,13 +28,20 @@
     </parent>
 
     <artifactId>wildfly-legacy-test-parent</artifactId>
-
     <groupId>org.wildfly.legacy.test</groupId>
     <version>10.0.1.Final</version>
+    <packaging>pom</packaging>
+
     <name>WildFly: Legacy Test</name>
     <description>This project supplies the classes to boostrap legacy controllers for the WildFly core-model-test and subsystem-test modules.</description>
     <url>https://github.com/wildfly/wildfly-legacy-test.git</url>
-    <packaging>pom</packaging>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
 
     <developers>
         <developer>

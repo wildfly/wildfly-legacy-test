@@ -32,8 +32,6 @@
 
     <name>WildFly: Legacy Test SPI</name>
     <description>The legacy Test SPI</description>
-    <packaging>jar</packaging>
-
 
     <dependencies>
         <dependency>
