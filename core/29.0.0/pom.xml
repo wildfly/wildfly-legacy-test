@@ -32,7 +32,6 @@
 
     <name>WildFly: Legacy Test 21.1.x Core Controller</name>
     <description>The legacy Test SPI 21.1.x core controller used by WildFly 21.0.0.Final-SNAPSHOT</description>
-    <packaging>jar</packaging>
 
     <properties>
         <property.old.wildfly-core>22.0.0.Beta1</property.old.wildfly-core>

@@ -32,7 +32,6 @@
 
     <name>WildFly: Legacy Test 27.0.x Core Controller</name>
     <description>The legacy Test SPI 27.0.x core controller used by WildFly 35_0_0.Final</description>
-    <packaging>jar</packaging>
 
     <properties>
         <!-- The WildFly Core version of the controllers this module will boostrap -->

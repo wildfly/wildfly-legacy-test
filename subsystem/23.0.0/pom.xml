@@ -32,7 +32,6 @@
 
     <name>WildFly: Legacy Test 23.0.0 Subsystem Controller</name>
     <description>The legacy Test 23.0.0 subsystem controller</description>
-    <packaging>jar</packaging>
 
     <properties>
         <property.old.wildfly-core>15.0.0.Final</property.old.wildfly-core>

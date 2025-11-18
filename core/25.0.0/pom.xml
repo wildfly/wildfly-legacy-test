@@ -32,7 +32,6 @@
 
     <name>WildFly: Legacy Test 17.0.x Core Controller</name>
     <description>The legacy Test SPI 17.0.x core controller used by WildFly 25.0.0.Final</description>
-    <packaging>jar</packaging>
 
     <properties>
         <property.old.wildfly-core>17.0.1.Final</property.old.wildfly-core>
