@@ -2,7 +2,7 @@
  * Copyright The WildFly Authors
  * SPDX-License-Identifier: Apache-2.0
  */
-package org.wildfly.legacy.test.controller.core_35_0_0;
+package org.wildfly.legacy.test.controller.core_41_0_0;
 
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.OP;
 
@@ -17,25 +17,17 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
-import org.jboss.as.controller.BootErrorCollector;
-import org.jboss.as.controller.CapabilityRegistry;
-import org.jboss.as.controller.ControlledProcessState;
-import org.jboss.as.controller.ExpressionResolver;
-import org.jboss.as.controller.ManagementModel;
-import org.jboss.as.controller.PathElement;
-import org.jboss.as.controller.ProcessType;
-import org.jboss.as.controller.ProxyController;
-import org.jboss.as.controller.ResourceDefinition;
-import org.jboss.as.controller.RunningMode;
-import org.jboss.as.controller.RunningModeControl;
+import org.jboss.as.controller.*;
 import org.jboss.as.controller.audit.AuditLogger;
 import org.jboss.as.controller.capability.registry.ImmutableCapabilityRegistry;
 import org.jboss.as.controller.descriptions.ModelDescriptionConstants;
+import org.jboss.as.controller.descriptions.NonResolvingResourceDescriptionResolver;
 import org.jboss.as.controller.extension.ExtensionRegistry;
 import org.jboss.as.controller.operations.common.ProcessEnvironment;
 import org.jboss.as.controller.persistence.ExtensibleConfigurationPersister;
@@ -43,6 +35,7 @@ import org.jboss.as.controller.persistence.NullConfigurationPersister;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
 import org.jboss.as.controller.registry.Resource;
 import org.jboss.as.controller.services.path.PathManagerService;
+import org.jboss.as.controller.transform.TransformerRegistry;
 import org.jboss.as.controller.transform.Transformers;
 import org.jboss.as.core.model.test.ModelInitializer;
 import org.jboss.as.core.model.test.TestModelType;
@@ -85,8 +78,8 @@ import org.jboss.msc.value.InjectedValue;
 import org.wildfly.security.manager.WildFlySecurityManager;
 
 /**
- * A {@link ModelTestModelControllerService} to bootstrap WildFly 35.0.0 controllers.
- * This class will be invoked by the WildFly core-model-test/framework to start the controllers used by a WildFly 35.0.0 server.
+ * A {@link ModelTestModelControllerService} to bootstrap WildFly 41.0.0 controllers.
+ * This class will be invoked by the WildFly core-model-test/framework to start the controllers used by a WildFly 41.0.0 server.
  * These controllers will be used on the WildFly testsuite to test transformations from the current WildFly version under test and a legacy one.
  * <p>
  * The core-model-test/framework will prepare a special class loader where some modules are loaded from the current WildFly version
@@ -94,7 +87,7 @@ import org.wildfly.security.manager.WildFlySecurityManager;
  *
  * @author Tomaz Cerar
  */
-class TestModelControllerService35_0_0 extends ModelTestModelControllerService {
+class TestModelControllerService41_0_0 extends ModelTestModelControllerService {
 
     private final InjectedValue<ContentRepository> injectedContentRepository = new InjectedValue<>();
     private final TestModelType type;
@@ -107,21 +100,22 @@ class TestModelControllerService35_0_0 extends ModelTestModelControllerService {
     private volatile Initializer initializer;
     private final CapabilityRegistry capabilityRegistry;
 
-    TestModelControllerService35_0_0(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
+    TestModelControllerService41_0_0(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
                                      TestModelType type, ModelInitializer modelInitializer, DelegatingResourceDefinition rootResourceDefinition, ControlledProcessState processState,
                                      ExtensionRegistry extensionRegistry, CapabilityRegistry capabilityRegistry) {
 
         super(processType,
                 extensionRegistry.getStability(),
                 runningModeControl,
-                null,
+                extensionRegistry.getTransformerRegistry(),
                 persister,
                 validateOpsFilter,
                 rootResourceDefinition,
                 processState,
                 ExpressionResolver.TEST_RESOLVER,
                 capabilityRegistry,
-                Controller35x.INSTANCE);
+                Controller41x.INSTANCE
+               );
 
         this.type = type;
         this.runningModeControl = runningModeControl;
@@ -151,10 +145,10 @@ class TestModelControllerService35_0_0 extends ModelTestModelControllerService {
         }
     }
 
-    static TestModelControllerService35_0_0 create(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
+    static TestModelControllerService41_0_0 create(ProcessType processType, RunningModeControl runningModeControl, StringConfigurationPersister persister, ModelTestOperationValidatorFilter validateOpsFilter,
                                                    TestModelType type, ModelInitializer modelInitializer, ExtensionRegistry extensionRegistry) {
         CapabilityRegistry capabilityRegistry = new CapabilityRegistry(type == TestModelType.STANDALONE);
-        return new TestModelControllerService35_0_0(processType, runningModeControl, persister, validateOpsFilter, type, modelInitializer, new DelegatingResourceDefinition(type), new ControlledProcessState(true), extensionRegistry, capabilityRegistry);
+        return new TestModelControllerService41_0_0(processType, runningModeControl, persister, validateOpsFilter, type, modelInitializer, new DelegatingResourceDefinition(type), new ControlledProcessState(true), extensionRegistry, capabilityRegistry);
     }
 
     InjectedValue<ContentRepository> getContentRepositoryInjector() {
@@ -272,12 +266,12 @@ class TestModelControllerService35_0_0 extends ModelTestModelControllerService {
     /**
      * Create a product config object with the stability set to the one specified in the additional initialization.
      * We need to use reflection to set the stability field as it is private and there is no setter in the ProductConfig
-     * class we shipped in WildFly 35.
+     * class we shipped in WildFly 41.
      *
      * @return the product config object
      */
     private ProductConfig createProductConfig() {
-        ProductConfig productConfig = new ProductConfig("legacy-35.0.0", "35.0.0", "mail");
+        ProductConfig productConfig = new ProductConfig("legacy-41.0.0", "41.0.0", "mail");
         try {
             Field stabilityField = ProductConfig.class.getDeclaredField("defaultStability");
             stabilityField.setAccessible(true);
@@ -435,7 +429,7 @@ class TestModelControllerService35_0_0 extends ModelTestModelControllerService {
 
     private void delete(File file) {
         if (file.isDirectory()) {
-            for (File child : file.listFiles()) {
+            for (File child : Objects.requireNonNull(file.listFiles())) {
                 delete(child);
             }
         }
