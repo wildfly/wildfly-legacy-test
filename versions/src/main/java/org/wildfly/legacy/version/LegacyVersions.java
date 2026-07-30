@@ -57,6 +57,7 @@ public class LegacyVersions {
         output("7.4.0");
         output("wf31");
         output("wf35");
+        output("wf41");
     }
 
     private static void output(String version) {

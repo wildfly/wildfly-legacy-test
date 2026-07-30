@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ JBoss, Home of Professional Open Source
-  ~ Copyright 2017, Red Hat, Inc., and individual contributors as indicated
+  ~ Copyright 2020, Red Hat, Inc., and individual contributors as indicated
   ~ by the @authors tag.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,19 +23,19 @@
 
     <parent>
         <groupId>org.wildfly.legacy.test</groupId>
-        <artifactId>wildfly-legacy-core-parent</artifactId>
+        <artifactId>wildfly-legacy-subsystem-parent</artifactId>
         <version>11.0.0.Final-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>wildfly-legacy-core-31.0.0</artifactId>
+    <artifactId>wildfly-legacy-subsystem-41.0.0</artifactId>
 
-    <name>WildFly: Legacy Test 23.0.x Core Controller</name>
-    <description>The legacy Test SPI 23.0.x core controller used by WildFly 31_0_0.Final</description>
+    <name>WildFly: Legacy Test 41.0.0 Subsystem Controller</name>
+    <description>The legacy Test 41.0.0 subsystem controller</description>
 
     <properties>
         <!-- The WildFly Core version of the controllers this module will boostrap -->
-        <property.old.wildfly-core>23.0.1.Final</property.old.wildfly-core>
+        <property.old.wildfly-core>33.0.0.Final</property.old.wildfly-core>
     </properties>
 
     <dependencies>
@@ -55,15 +55,15 @@
                 </exclusion>
                 <exclusion>
                     <groupId>org.wildfly.legacy.test.direct</groupId>
+                    <artifactId>wildfly-core-model-test-framework</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.wildfly.legacy.test.direct</groupId>
                     <artifactId>wildfly-deployment-repository</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.wildfly.legacy.test.direct</groupId>
                     <artifactId>wildfly-server</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.wildfly.legacy.test.direct</groupId>
-                    <artifactId>wildfly-subsystem-test-framework</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -81,12 +81,6 @@
         <dependency>
             <groupId>org.wildfly.core</groupId>
             <artifactId>wildfly-controller</artifactId>
-            <version>${property.old.wildfly-core}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.wildfly.core</groupId>
-            <artifactId>wildfly-host-controller</artifactId>
             <version>${property.old.wildfly-core}</version>
             <scope>provided</scope>
         </dependency>
