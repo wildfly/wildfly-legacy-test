@@ -35,7 +35,7 @@
 
     <properties>
         <!-- The WildFly Core version of the controllers this module will boostrap -->
-        <property.old.wildfly-core>23.0.1.Final</property.old.wildfly-core>
+        <property.old.wildfly-core>27.0.1.Final</property.old.wildfly-core>
     </properties>
 
     <dependencies>
