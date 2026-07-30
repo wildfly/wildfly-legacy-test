@@ -34,7 +34,7 @@
     <description>The legacy Test SPI 17.0.x core controller used by WildFly 25.0.0.Final</description>
 
     <properties>
-        <property.old.wildfly-core>17.0.1.Final</property.old.wildfly-core>
+        <property.old.wildfly-core>27.0.1.Final</property.old.wildfly-core>
     </properties>
 
     <dependencies>
